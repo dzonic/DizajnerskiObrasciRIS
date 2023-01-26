@@ -2,9 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
@@ -27,16 +25,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 
 import java.awt.Component;
-import javax.swing.border.LineBorder;
-import java.awt.SystemColor;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.awt.Cursor;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -105,31 +96,19 @@ public class FrmDrawing extends JFrame implements Observer {
 		this.controller = controller;
 		controller.setCurrState(OPERATION_DRAWING);
 	}
-	public int getOPERATION_DRAWING() {
-		return OPERATION_DRAWING;
-	}
 	public int getOPERATION_EDIT_DELETE() {
 		return OPERATION_EDIT_DELETE;
-	}
-	public int getActiveOperation() {
-		return activeOperation;
 	}
 	public void setActiveOperation(int operation) {
 		this.activeOperation = operation;
 	}
-	public JButton getBtnRedo()
-	{
-		return btnRedo;
-	}
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrmDrawing frame = new FrmDrawing();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				FrmDrawing frame = new FrmDrawing();
+				frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 	}
@@ -161,75 +140,29 @@ public class FrmDrawing extends JFrame implements Observer {
 		
 		btnOperationDrawing.setSelected(true);
 		
-		btnOperationDrawing.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.setCurrState(OPERATION_DRAWING);
-			}
-		});
+		btnOperationDrawing.addActionListener(e -> controller.setCurrState(OPERATION_DRAWING));
 		btnOperationDrawing.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationDrawing);
 		
-		btnOperationEditOrDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.setCurrState(OPERATION_EDIT_DELETE);
-			}
-		});
+		btnOperationEditOrDelete.addActionListener(e -> controller.setCurrState(OPERATION_EDIT_DELETE));
 		btnOperationEditOrDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationEditOrDelete);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Akcije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_3);
-		btnActionEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.operationEdit(e);			}
-		});
+		btnActionEdit.addActionListener(e -> controller.operationEdit(e));
 		btnActionEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		btnActionDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.operationDelete(e);
-			}
-		});
+		btnActionDelete.addActionListener(e -> controller.operationDelete(e));
 		btnActionDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		btnUndo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.undoCommand();
-			}
-		});
-		btnRedo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.redoCommand();
-			}
-		});
-		btnToFront.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.toFront();
-				
-			}
-		});
-		btnBringToFront.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.bringToFront();
-			}
-		});
-		btnToBack.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.toBack();
-			}
-		});
-		btnBringToBack.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.bringToBack();
-			}
-		});
+		btnUndo.addActionListener(e -> controller.undoCommand());
+		btnRedo.addActionListener(e -> controller.redoCommand());
+		btnToFront.addActionListener(e -> controller.toFront());
+		btnBringToFront.addActionListener(e -> controller.bringToFront());
+		btnToBack.addActionListener(e -> controller.toBack());
+		btnBringToBack.addActionListener(e -> controller.bringToBack());
 		
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
@@ -276,8 +209,7 @@ public class FrmDrawing extends JFrame implements Observer {
 					.addContainerGap(25, Short.MAX_VALUE))
 		);
 		panel_3.setLayout(gl_panel_3);
-		
-		
+
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "Oblici", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_4);
@@ -307,44 +239,35 @@ public class FrmDrawing extends JFrame implements Observer {
 		btnsShapes.add(btnShapeHexagon);
 		panel_4.add(btnShapeHexagon);
 
-		btnOpenFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				openFileChooser = new JFileChooser();
-				openFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				openFileChooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
-				openFileChooser.setAcceptAllFileFilterUsed(false);
-				openFileChooser.setFileHidingEnabled(false);
-				openFileChooser.setMultiSelectionEnabled(false);
-				openFileChooser.enableInputMethods(true);
-				openFileChooser.setEnabled(true);
-				openFileChooser.setFileFilter(drawFilter);
-				openFileChooser.setFileFilter(logFilter);
-				
-				controller.openFile();
-				
-			}
-		});
-		btnSaveFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveFileChooser = new JFileChooser();
-				saveFileChooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
-				saveFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				saveFileChooser.enableInputMethods(false);
-				saveFileChooser.setMultiSelectionEnabled(false);
-				saveFileChooser.setFileHidingEnabled(false);
-				saveFileChooser.setEnabled(true);
-				saveFileChooser.setDialogTitle("Sacuvaj");
-				saveFileChooser.setAcceptAllFileFilterUsed(false);
+		btnOpenFile.addActionListener(arg0 -> {
+			openFileChooser = new JFileChooser();
+			openFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			openFileChooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
+			openFileChooser.setAcceptAllFileFilterUsed(false);
+			openFileChooser.setFileHidingEnabled(false);
+			openFileChooser.setMultiSelectionEnabled(false);
+			openFileChooser.enableInputMethods(true);
+			openFileChooser.setEnabled(true);
+			openFileChooser.setFileFilter(drawFilter);
+			openFileChooser.setFileFilter(logFilter);
 
-				controller.saveFile();
-			}
+			controller.openFile();
+
 		});
-		btnReadCommand.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.readCommand();
-				
-			}
+		btnSaveFile.addActionListener(e -> {
+			saveFileChooser = new JFileChooser();
+			saveFileChooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
+			saveFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			saveFileChooser.enableInputMethods(false);
+			saveFileChooser.setMultiSelectionEnabled(false);
+			saveFileChooser.setFileHidingEnabled(false);
+			saveFileChooser.setEnabled(true);
+			saveFileChooser.setDialogTitle("Sacuvaj");
+			saveFileChooser.setAcceptAllFileFilterUsed(false);
+
+			controller.saveFile();
 		});
+		btnReadCommand.addActionListener(e -> controller.readCommand());
 		
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
@@ -439,35 +362,24 @@ public class FrmDrawing extends JFrame implements Observer {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setViewportView(listLog);
-		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-			
-			@Override
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
-				
-			}
-		});
+		scrollPane.getVerticalScrollBar().addAdjustmentListener(e -> e.getAdjustable().setValue(e.getAdjustable().getMaximum()));
 		pnlLog.add(scrollPane);
 	}
 	private ActionListener edgeColorChooser() {
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Color edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", controller.getEdgeColor());
-				if (edgeColor != null) {
-					controller.setEdgeColor(edgeColor);
-					btnColorEdge.setBackground(edgeColor);
-				}
+		return e -> {
+			Color edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", controller.getEdgeColor());
+			if (edgeColor != null) {
+				controller.setEdgeColor(edgeColor);
+				btnColorEdge.setBackground(edgeColor);
 			}
 		};
 	}
 	private ActionListener innerColorChooser() {
-	return new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			Color innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnosti", controller.getInnerColor());
-			if (innerColor != null) {
-				controller.setInnerColor(innerColor);
-				btnColorInner.setBackground(innerColor);
-			}
+	return e -> {
+		Color innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnosti", controller.getInnerColor());
+		if (innerColor != null) {
+			controller.setInnerColor(innerColor);
+			btnColorInner.setBackground(innerColor);
 		}
 	};
 }
@@ -555,24 +467,6 @@ public class FrmDrawing extends JFrame implements Observer {
 			btnColorInner.setEnabled(false);
 		}
 		
-	}
-	public ButtonGroup getBtnsOperation() {
-		return btnsOperation;
-	}
-	public ButtonGroup getBtnsShapes() {
-		return btnsShapes;
-	}
-	public JToggleButton getBtnOperationDrawing() {
-		return btnOperationDrawing;
-	}
-	public JToggleButton getBtnOperationEditOrDelete() {
-		return btnOperationEditOrDelete;
-	}
-	public JButton getBtnActionEdit() {
-		return btnActionEdit;
-	}
-	public JButton getBtnActionDelete() {
-		return btnActionDelete;
 	}
 	public JToggleButton getBtnShapePoint() {
 		return btnShapePoint;

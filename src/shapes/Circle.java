@@ -80,7 +80,6 @@ public class Circle extends Shape {
 			return false;
 		}
 	}
-	
 	public double area() {
 		return radius * radius * Math.PI;
 	}
@@ -97,9 +96,7 @@ public class Circle extends Shape {
 	
 	public void setRadius(int radius) {
 			this.radius = radius;
-		
 	}
-	
 	public String toString() {
 		return "Circle Center(" + center.getxCoordinate()+"|"+center.getyCoordinate() + ")|Radius(" + radius + ")|EdgeColor("+getEdgeColor().getRGB()+")|InnerColor("+getInnerColor().getRGB() + ")";
 	}
@@ -118,7 +115,6 @@ public class Circle extends Shape {
 		
 		return new Circle(new Point(x, y), r, edgeColor, innerColor);
 	}
-
 	@Override
 	public Shape clone() {
 		Circle circle = new Circle();
@@ -130,7 +126,4 @@ public class Circle extends Shape {
 		
 		return circle;
 	}
-
-
-	
 }
