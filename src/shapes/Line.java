@@ -4,30 +4,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Line extends Shape {
-
 	private Point startPoint;
 	private Point endPoint;
-	
 	public Line() {
-	
 	}
-
 	public Line(Point startPoint, Point endPoint) {
 		this.startPoint = startPoint;
 		setEndPoint(endPoint);
 	}
-
 	public Line(Point startPoint, Point endPoint, Color edgeColor) {
 		this.startPoint = startPoint;
 		setEndPoint(endPoint);
 		setEdgeColor(edgeColor);
 	}
-
-	public Line(Point startPoint, Point endPoint, boolean selected) {
-		this(startPoint, endPoint);
-		setSelected(selected);
-	}
-
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(getEdgeColor());
@@ -40,7 +29,6 @@ public class Line extends Shape {
 			g.drawRect(this.middleOfLine().getxCoordinate() - 3, this.middleOfLine().getyCoordinate() - 3, 6, 6);
 		}
 	}
-
 	@Override
 	public int compareTo(Object o) {
 		if (o instanceof Line) {
@@ -48,20 +36,17 @@ public class Line extends Shape {
 		}
 		return 0;
 	}
-	
 	@Override
 	public void moveBy(int byX, int byY) {
 		startPoint.moveBy(byX, byY);
 		endPoint.moveBy(byX, byY);
 	}
-	
 	public Point middleOfLine() {
 		int middleByX = (this.getStartPoint().getxCoordinate() + this.getEndPoint().getxCoordinate()) / 2;
 		int middleByY = (this.getStartPoint().getyCoordinate() + this.getEndPoint().getyCoordinate()) / 2;
 		Point p = new Point(middleByX, middleByY);
 		return p;
 	}
-	
 	public boolean contains(int x, int y) {
 		if ((startPoint.distance(x, y) + endPoint.distance(x, y)) - length() <= 0.05) {
 			return true;
@@ -69,7 +54,6 @@ public class Line extends Shape {
 			return false;
 		}
 	}
-	
 	public boolean equals(Object obj) {
 		if (obj instanceof Line) {
 			Line l = (Line) obj;
@@ -83,11 +67,9 @@ public class Line extends Shape {
 			return false;
 		}
 	}
-	
 	public double length() {
 		return startPoint.distance(endPoint.getxCoordinate(), endPoint.getyCoordinate());
 	}
-	
 	public Point getStartPoint() {
 		return startPoint;
 	}
@@ -100,12 +82,10 @@ public class Line extends Shape {
 	public void setEndPoint(Point endPoint) {
 		this.endPoint = endPoint;
 	}
-	
 	public String toString() {
 		return "Line(X1 " + startPoint.getxCoordinate() + "|Y1 " + startPoint.getyCoordinate() + "|X2 " + endPoint.getxCoordinate() + "|Y2 " + endPoint.getyCoordinate() + ")|EdgeColor(" + getEdgeColor().getRGB()+")";
 
 	}
-	
 	public static Line parse(String shape) {
 		shape = shape.replace("Line(X1 ", "").replace(")", "");
 		
@@ -118,7 +98,6 @@ public class Line extends Shape {
 		
 		return new Line(new Point(x1,y1),new Point(x2,y2), edgeColor);
 	}
-
 	@Override
 	public Shape clone() {
 		Line line = new Line();
@@ -130,5 +109,4 @@ public class Line extends Shape {
 		
 		return line;
 	}
-	
 }

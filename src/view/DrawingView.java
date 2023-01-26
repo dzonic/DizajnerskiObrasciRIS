@@ -20,7 +20,6 @@ public class DrawingView extends JPanel {
 	}
 	public void paint(Graphics g) {
 		super.paint(g);
-		
 		if(model != null) {
 			model.getShapes().forEach(shape -> shape.draw(g));
 		}

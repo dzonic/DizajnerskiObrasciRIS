@@ -4,31 +4,24 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Circle extends Shape {
-
 	private Point center;
 	private int radius;
-	
 	public Circle() {
-
 	}
-
 	public Circle(Point center, int radius) {
 		this.center = center;
 		this.radius = radius;
 	}
-	
 	public Circle(Point center, int radius, Color edgeColor, Color innerColor) {
 		this.center = center;
 		this.radius = radius;
 		setEdgeColor(edgeColor);
 		setInnerColor(innerColor);
 	}
-
 	public Circle(Point center, int radius, boolean selected) {
 		this(center, radius);
 		setSelected(selected);
 	}
-
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(getEdgeColor());
@@ -45,13 +38,11 @@ public class Circle extends Shape {
 			g.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 - getRadius(), 6, 6);
 		}
 	}
-	
 	@Override
 	public void moveBy(int byX, int byY) {
 		center.moveBy(byX, byY);
 		
 	}
-	
 	@Override
 	public int compareTo(Object o) {
 		if (o instanceof Circle) {
@@ -59,15 +50,12 @@ public class Circle extends Shape {
 		}
 		return 0;
 	}
-	
 	public boolean contains(int x, int y) {
 		return this.getCenter().distance(x, y) <= radius;
 	}
-	
 	public boolean contains(Point p) {
 		return p.distance(getCenter().getxCoordinate(), getCenter().getyCoordinate()) <= radius;
 	}
-	
 	public boolean equals(Object obj) {
 		if (obj instanceof Circle) {
 			Circle c = (Circle) obj;
@@ -83,7 +71,6 @@ public class Circle extends Shape {
 	public double area() {
 		return radius * radius * Math.PI;
 	}
-	
 	public Point getCenter() {
 		return center;
 	}
@@ -93,14 +80,12 @@ public class Circle extends Shape {
 	public int getRadius() {
 		return radius;
 	}
-	
 	public void setRadius(int radius) {
 			this.radius = radius;
 	}
 	public String toString() {
 		return "Circle Center(" + center.getxCoordinate()+"|"+center.getyCoordinate() + ")|Radius(" + radius + ")|EdgeColor("+getEdgeColor().getRGB()+")|InnerColor("+getInnerColor().getRGB() + ")";
 	}
-	
 	public static Circle parse(String shape) {
 		shape = shape.replace("Circle Center(", "").replace(")", "");
 		

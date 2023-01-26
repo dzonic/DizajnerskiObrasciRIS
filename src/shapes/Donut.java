@@ -5,33 +5,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
-
-
 public class Donut extends Circle {
-	
 	private int innerRadius;
-	
 	public Donut() {
-		
 	}
-	
 	public Donut(Point center, int radius, int innerRadius) {
 		super(center, radius);
 		this.innerRadius = innerRadius;
 	}
-	
 	public Donut(Point center, int radius, int innerRadius, Color edgeColor, Color innerColor) {
 		super(center, radius, edgeColor, innerColor);
 		this.innerRadius = innerRadius;
 		setEdgeColor(edgeColor);
 		setInnerColor(innerColor);
 	}
-	
-	public Donut(Point center, int radius, int innerRadius, boolean selected) {
-		this(center, radius, innerRadius);
-		setSelected(selected);
-	}
-	
 	public void draw(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		Path2D path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
@@ -55,29 +42,23 @@ public class Donut extends Circle {
 			g2d.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 - getRadius(), 6, 6);
 		}
 	}
-
-	
 	public int compareTo(Object o) {
 		if (o instanceof Donut) {
 			return (int) (this.area() - ((Donut) o).area());
 		}
 		return 0;
 	}
-	
 	public boolean contains(int x, int y) {
 		double dFromCenter = this.getCenter().distance(x, y);
 		return super.contains(x, y) && dFromCenter > innerRadius;
 	}
-	
 	public boolean contains(Point p) {
 		double dFromCenter = this.getCenter().distance(p.getxCoordinate(), p.getyCoordinate());
 		return super.contains(p.getxCoordinate(), p.getyCoordinate()) && dFromCenter > innerRadius;
 	}
-	
 	public double area() {
 		return super.area() - innerRadius * innerRadius * Math.PI;
 	}
-	
 	public boolean equals(Object obj) {
 		if (obj instanceof Donut) {
 			Donut d = (Donut) obj;
@@ -92,18 +73,14 @@ public class Donut extends Circle {
 			return false;
 		}
 	}
-	
 	public int getInnerRadius() {
 		return innerRadius;
 	}
 	public void setInnerRadius(int innerRadius) {
 		this.innerRadius = innerRadius;
 	}
-	
 	public String toString() {
 		return "Donut Center(" + super.getCenter().getxCoordinate() + "|" + super.getCenter().getyCoordinate() + ")|Radius(" + super.getRadius() + ")|InnerRadius("+ innerRadius +")|EdgeColor("+getEdgeColor().getRGB()+")|InnerColor("+getInnerColor().getRGB() +")";
-
-
 	}
 	
 	public static Donut parse(String shape) {
@@ -120,11 +97,9 @@ public class Donut extends Circle {
 		
 		return new Donut(new Point(x,y),r,ir,edgeColor,innerColor);
 	}
-	
 	public Shape clone() {
 		Donut donut = new Donut(new Point(getCenter().getxCoordinate(), getCenter().getyCoordinate()), getRadius(), getInnerRadius(), getEdgeColor(), getInnerColor() );
 		donut.setSelected(isSelected());
-		
 		return donut;
 	}
 }
