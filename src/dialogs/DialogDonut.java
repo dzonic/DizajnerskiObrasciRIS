@@ -25,7 +25,6 @@ public class DialogDonut extends JDialog {
 	JTextField txtY;
 	JTextField txtRadius;
 	JTextField txtInnerRadius;
-	
 	private Donut donut = null;
 	Color edgeColor = null;
     Color innerColor = null;
@@ -36,7 +35,6 @@ public class DialogDonut extends JDialog {
 	JButton btnInnerColor = new JButton(" ");
 	public DialogDonut() {
 		setResizable(false);
-		setTitle("IT 43-2017 Bordjoski Jelena");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 258, 213);
@@ -193,9 +191,7 @@ public class DialogDonut extends JDialog {
 		txtInnerRadius.setText("" + donut.getInnerRadius());
 		edgeColor = donut.getEdgeColor();
 		innerColor = donut.getInnerColor();
-		
 		isSelected = donut.isSelected();
-		
 		setColors(donut.getEdgeColor(), donut.getInnerColor());
 	}
 }

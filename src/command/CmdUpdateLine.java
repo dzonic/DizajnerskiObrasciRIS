@@ -3,7 +3,6 @@ package command;
 import shapes.Line;
 
 public class CmdUpdateLine implements Command {
-
 	private Line oldState;
 	private Line newState;
 	private Line original;

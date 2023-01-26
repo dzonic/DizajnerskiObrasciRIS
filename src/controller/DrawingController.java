@@ -34,28 +34,20 @@ import observer.Observer;
 import observer.Subject;
 import dialogs.*;
 
-
-
-
 public class DrawingController implements Subject {
-
 	private DrawingModel model;
 	private FrmDrawing frame;
 	private Stack<Command> executedCmd;
 	private Stack<Command> unexecutedCmd;
-	
 	private boolean lineWaitingForSecondPoint = false;
 	private Point lineFirstPoint;
 	private Color edgeColor, innerColor ;
 	private DefaultListModel<String> log;
-	
 	private Context context;
 	private FileSerialization fileSerialization;
 	private LogFile logFile;
-	
 	private ArrayList <Observer> observers;
 	private int currState; // currentState
-	
 	private String typeOfFile = null;
 	private boolean isRedo;
 	
@@ -134,7 +126,7 @@ public class DrawingController implements Subject {
 					lineWaitingForSecondPoint = false;
 					return;
 				}
-				
+
 				lineFirstPoint = mouseClick;
 				lineWaitingForSecondPoint = true;
 				return;
@@ -203,9 +195,9 @@ public class DrawingController implements Subject {
 				}
 				return;
 			}
-			
+
 		}
-	
+
 	public void selectDeselectShapeFromLog(int x, int y)
 	{
 		frame.setActiveOperation(frame.getOPERATION_EDIT_DELETE());
@@ -213,13 +205,13 @@ public class DrawingController implements Subject {
 		MouseEvent e = new MouseEvent(frame.getView(), MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, x,y, 1, false);
 		OperationDrawing(e);
 	}
-	
+
 
 	public void operationEdit(ActionEvent e) {
-		
+
 		int index = model.getSelected();
 		if (index == -1) return;
-		
+
 		Shape shape = model.getShape(index);
 		
 		if (shape instanceof Point) {
@@ -283,13 +275,13 @@ public class DrawingController implements Subject {
 			dialogCircle.setVisible(true);
 			
 			if(dialogCircle.getCircle() != null) {
-				
+
 				frame.getBtnColorEdge().setBackground(dialogCircle.getEdgeColor());
 				frame.getBtnColorInner().setBackground(dialogCircle.getInnerColor());
-				
+
 				CmdUpdateCircle cmdUpdateCircle = new CmdUpdateCircle((Circle)shape, dialogCircle.getCircle());
 				execute(cmdUpdateCircle);
-				
+
 			}
 		}
 		else if(shape instanceof HexagonAdapter) {
@@ -298,15 +290,15 @@ public class DrawingController implements Subject {
 			dialogHexagon.setVisible(true);
 			
 			if(dialogHexagon.getHexagon()!= null) {
-				
+
 				frame.getBtnColorEdge().setBackground(dialogHexagon.getEdgeColor());
 				frame.getBtnColorInner().setBackground(dialogHexagon.getInnerColor());
-				
+
 				CmdUpdateHexagon cmdUpdateHexagon =  new CmdUpdateHexagon((HexagonAdapter)shape, dialogHexagon.getHexagon());
 				execute(cmdUpdateHexagon);
 
 			}
-			
+
 		}
 	}
 
@@ -317,56 +309,56 @@ public class DrawingController implements Subject {
 			execute(cmdDeleteShapes);
 		} 
 	}
-	
+
 	public void saveFile() {
-		
+
 		if(!model.getShapes().isEmpty()) frame.getSaveFileChooser().setFileFilter(frame.getDrawFilter());
 		if(!log.isEmpty()) frame.getSaveFileChooser().setFileFilter(frame.getLogFilter());
-		
+
 		if (frame.getSaveFileChooser().showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 			if(frame.getSaveFileChooser().getFileFilter().getDescription() == "Crtez")
 				context = new Context(fileSerialization);
 			else if(frame.getSaveFileChooser().getFileFilter().getDescription() == "Log")
 				context = new Context(logFile);
-			
+
 			context.saveFile(frame.getSaveFileChooser().getSelectedFile());
 		}
-		
+
 		frame.getSaveFileChooser().setVisible(false);
-		
+
 	}
-	
+
 	public void readCommand()
 	{
 		logFile.readCommand();
 	}
-	
+
 	public void openFile() {
-		
+
 		if(frame.getOpenFileChooser().showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
 		{
 			if(frame.getOpenFileChooser().getFileFilter().getDescription() == "Crtez") context = new Context(fileSerialization); typeOfFile = "Crtez";
-			
-			if(frame.getOpenFileChooser().getFileFilter().getDescription() == "Log") context = new Context(logFile); typeOfFile = "Log"; 
-		
+
+			if(frame.getOpenFileChooser().getFileFilter().getDescription() == "Log") context = new Context(logFile); typeOfFile = "Log";
+
 			context.openFile(frame.getOpenFileChooser().getSelectedFile());
 			frame.getView().repaint();
 		}
-		
+
 		frame.getOpenFileChooser().setVisible(false);
 		notifyObservers();
-		
+
 	}
-	
+
 	public void execute(Command cmd) {
 
 		if(!isRedo) unexecutedCmd.clear();
 		cmd.execute();
-		if(cmd instanceof CmdAddShape) log.addElement(((CmdAddShape)cmd).getLog());	
+		if(cmd instanceof CmdAddShape) log.addElement(((CmdAddShape)cmd).getLog());
 		else if(cmd instanceof CmdDeleteShapes) log.addElement(((CmdDeleteShapes)cmd).getLog());
 		else if(cmd instanceof CmdUpdateCircle) log.addElement(((CmdUpdateCircle)cmd).getLog());
 		else if(cmd instanceof CmdUpdateDonut) log.addElement(((CmdUpdateDonut)cmd).getLog());
-		else if(cmd instanceof CmdUpdateHexagon) log.addElement(((CmdUpdateHexagon)cmd).getLog()); 
+		else if(cmd instanceof CmdUpdateHexagon) log.addElement(((CmdUpdateHexagon)cmd).getLog());
 		else if(cmd instanceof CmdUpdateLine) log.addElement(((CmdUpdateLine)cmd).getLog());
 		else if(cmd instanceof CmdUpdatePoint) log.addElement(((CmdUpdatePoint)cmd).getLog());
 		else if(cmd instanceof CmdUpdateRectangle) log.addElement(((CmdUpdateRectangle)cmd).getLog());
@@ -374,15 +366,15 @@ public class DrawingController implements Subject {
 		else if(cmd instanceof CmdBringToFront) log.addElement(((CmdBringToFront)cmd).getLog());
 		else if(cmd instanceof CmdToBack) log.addElement(((CmdToBack)cmd).getLog());
 		else if(cmd instanceof CmdToFront) log.addElement(((CmdToFront)cmd).getLog());
-		
+
 		executedCmd.push(cmd);
 		frame.getView().repaint();
 		notifyObservers();
-		
+
 	}
 	
 	public void unexecute(Command cmd) {
-				
+
 		cmd.unexecute();
 		if(cmd instanceof CmdAddShape) log.addElement(((CmdAddShape)cmd).getLog());	
 		else if(cmd instanceof CmdDeleteShapes) log.addElement(((CmdDeleteShapes)cmd).getLog());
@@ -401,7 +393,7 @@ public class DrawingController implements Subject {
 		frame.getView().repaint();
 		notifyObservers();
 	}
-	
+
 	public void undoCommand()
 	{
 		if(!executedCmd.isEmpty()) {
@@ -422,7 +414,7 @@ public class DrawingController implements Subject {
 		isRedo = false;
 	}
 
-	
+
 	public int numOfSelectedShapes() {
 		int numOfSelected = model.getSelectedShapes().size();
 		return numOfSelected;
@@ -432,20 +424,20 @@ public class DrawingController implements Subject {
 	{
 		int ind = model.getSelected();
 		Shape selectedShape = model.getShape(ind);
-		
+
 		if(ind == model.getShapes().size()-1) return;
-		
+
 		CmdToFront cmdToFront = new CmdToFront(selectedShape, model);
 		execute(cmdToFront);
 	}
 	
 	public void bringToFront() {
-		int ind = model.getSelected();
-		Shape selectedShape = model.getShape(ind);
-		
-		if(ind == model.getShapes().size() -1) return;
-		
-		
+		int index = model.getSelected();
+		Shape selectedShape = model.getShape(index);
+
+		if(index == model.getShapes().size() -1) return;
+
+
 		CmdBringToFront cmdBringToFront = new CmdBringToFront(selectedShape, model);
 		execute(cmdBringToFront);
 	}
@@ -462,31 +454,26 @@ public class DrawingController implements Subject {
 	}
 	
 	public void bringToBack() {
-		int ind = model.getSelected();
-		Shape selectedShape = model.getShape(ind);
+		int index = model.getSelected();
+		Shape selectedShape = model.getShape(index);
 		
-		if(ind == 0) return;
+		if(index == 0) return;
 		
 		CmdBringToBack cmdBringToBack = new CmdBringToBack(selectedShape, model);
 		execute(cmdBringToBack);
-		
 	}
-	
 	public Color getEdgeColor() {
 		return edgeColor;
 	}
-	
 	public Color getInnerColor() {
 		return innerColor;
 	}
 	public void setEdgeColor(Color edgeColor) {
 		this.edgeColor = edgeColor;
 	}
-	
 	public void setInnerColor(Color innerColor) {
 		this.innerColor = innerColor;
 	}
-
 	@Override
 	public void addObserver(Observer observer) {
 		observers.add(observer);

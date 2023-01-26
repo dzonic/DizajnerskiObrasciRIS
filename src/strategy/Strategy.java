@@ -6,5 +6,4 @@ public interface Strategy {
 	
 	void saveFile(File file);
 	void openFile(File file);
-
 }

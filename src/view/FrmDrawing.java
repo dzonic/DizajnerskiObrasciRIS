@@ -44,7 +44,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 public class FrmDrawing extends JFrame implements Observer {
-	
 	private DrawingView view = new DrawingView();
 	private DrawingController controller;
 	private final int OPERATION_DRAWING = 1;
@@ -73,75 +72,55 @@ public class FrmDrawing extends JFrame implements Observer {
 	private JButton btnSaveFile = new JButton("Sacuvaj");
 	private JButton btnOpenFile = new JButton("Otvori");
 	private JButton btnReadCommand = new JButton("Ucitaj komandu");
-	
 	private JPanel contentPane;
 	private final JPanel pnlLog = new JPanel();
-
 	private JList listLog = new JList();
 	private DefaultListModel<String> defaultListModel = new DefaultListModel<String>();
-	
 	private FileNameExtensionFilter drawFilter = new FileNameExtensionFilter("Crtez", "draw");
 	private FileNameExtensionFilter logFilter = new FileNameExtensionFilter("Log", "log");
-	
 	public JButton getBtnReadCommand() {
 		return btnReadCommand;
 	}
-	
 	public FileNameExtensionFilter getDrawFilter() {
 		return drawFilter;
 	}
-	
 	public FileNameExtensionFilter getLogFilter() {
 		return logFilter;
 	}
-	
 	private JFileChooser saveFileChooser;
 	private JFileChooser openFileChooser;
-	
 	public JFileChooser getSaveFileChooser() {
 		return saveFileChooser;
 	}
-	
 	public JFileChooser getOpenFileChooser() {
 		return openFileChooser;
 	}
-	
 	public DefaultListModel<String> getDefaultListLogModel() {
 		return this.defaultListModel;
 	}
-	
 	public DrawingView getView() {
 		return view;
 	}
-
 	public void setController(DrawingController controller) {
 		this.controller = controller;
 		controller.setCurrState(OPERATION_DRAWING);
 	}
-	
-	
 	public int getOPERATION_DRAWING() {
 		return OPERATION_DRAWING;
 	}
-
 	public int getOPERATION_EDIT_DELETE() {
 		return OPERATION_EDIT_DELETE;
 	}
-
 	public int getActiveOperation() {
 		return activeOperation;
 	}
-	
 	public void setActiveOperation(int operation) {
 		this.activeOperation = operation;
 	}
-	
-	
 	public JButton getBtnRedo()
 	{
 		return btnRedo;
 	}
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -154,7 +133,6 @@ public class FrmDrawing extends JFrame implements Observer {
 			}
 		});
 	}
-
 	public FrmDrawing() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1100, 900);
@@ -198,12 +176,10 @@ public class FrmDrawing extends JFrame implements Observer {
 		});
 		btnOperationEditOrDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationEditOrDelete);
-		
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Akcije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_3);
-		
 		btnActionEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.operationEdit(e);			}
@@ -223,14 +199,12 @@ public class FrmDrawing extends JFrame implements Observer {
 				controller.undoCommand();
 			}
 		});
-		
 		btnRedo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.redoCommand();
 			}
 		});
-		
 		btnToFront.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -238,21 +212,18 @@ public class FrmDrawing extends JFrame implements Observer {
 				
 			}
 		});
-		
 		btnBringToFront.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.bringToFront();
 			}
 		});
-		
 		btnToBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.toBack();
 			}
 		});
-		
 		btnBringToBack.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -335,7 +306,6 @@ public class FrmDrawing extends JFrame implements Observer {
 		btnShapeHexagon.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsShapes.add(btnShapeHexagon);
 		panel_4.add(btnShapeHexagon);
-		
 
 		btnOpenFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -354,7 +324,6 @@ public class FrmDrawing extends JFrame implements Observer {
 				
 			}
 		});
-
 		btnSaveFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				saveFileChooser = new JFileChooser();
@@ -370,7 +339,6 @@ public class FrmDrawing extends JFrame implements Observer {
 				controller.saveFile();
 			}
 		});
-		
 		btnReadCommand.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.readCommand();
@@ -479,12 +447,8 @@ public class FrmDrawing extends JFrame implements Observer {
 				
 			}
 		});
-		
 		pnlLog.add(scrollPane);
-		
 	}
-	
-	
 	private ActionListener edgeColorChooser() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -496,7 +460,6 @@ public class FrmDrawing extends JFrame implements Observer {
 			}
 		};
 	}
-	
 	private ActionListener innerColorChooser() {
 	return new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -508,7 +471,6 @@ public class FrmDrawing extends JFrame implements Observer {
 		}
 	};
 }
-
 	@Override
 	public void update(int currState,int numOfSelectedShapes, int numOfShapes,int numOfUnexecutedCmd,int numOfExecutedCmd,int numOfLogs,String typeOfFile) {
 
@@ -529,8 +491,7 @@ public class FrmDrawing extends JFrame implements Observer {
 		else btnRedo.setEnabled(true);
 		if(numOfExecutedCmd == 0)btnUndo.setEnabled(false);
 		else btnUndo.setEnabled(true);
-		
-		
+
 		if(OPERATION_DRAWING == currState) {
 
 			btnActionEdit.setEnabled(false);
@@ -552,8 +513,7 @@ public class FrmDrawing extends JFrame implements Observer {
 		}
 		
 		if(OPERATION_EDIT_DELETE == currState) {
-			
-			
+
 			if(numOfSelectedShapes>1)
 			{
 				btnActionEdit.setEnabled(false);
@@ -599,55 +559,42 @@ public class FrmDrawing extends JFrame implements Observer {
 	public ButtonGroup getBtnsOperation() {
 		return btnsOperation;
 	}
-
 	public ButtonGroup getBtnsShapes() {
 		return btnsShapes;
 	}
-
 	public JToggleButton getBtnOperationDrawing() {
 		return btnOperationDrawing;
 	}
-
 	public JToggleButton getBtnOperationEditOrDelete() {
 		return btnOperationEditOrDelete;
 	}
-
 	public JButton getBtnActionEdit() {
 		return btnActionEdit;
 	}
-
 	public JButton getBtnActionDelete() {
 		return btnActionDelete;
 	}
-
 	public JToggleButton getBtnShapePoint() {
 		return btnShapePoint;
 	}
-
 	public JToggleButton getBtnShapeLine() {
 		return btnShapeLine;
 	}
-
 	public JToggleButton getBtnShapeRectangle() {
 		return btnShapeRectangle;
 	}
-
 	public JToggleButton getBtnShapeCircle() {
 		return btnShapeCircle;
 	}
-
 	public JToggleButton getBtnShapeDonut() {
 		return btnShapeDonut;
 	}
-
 	public JButton getBtnColorEdge() {
 		return btnColorEdge;
 	}
-
 	public JButton getBtnColorInner() {
 		return btnColorInner;
 	}
-
 	public JToggleButton getBtnShapeHexagon() {
 		return btnShapeHexagon;
 	}

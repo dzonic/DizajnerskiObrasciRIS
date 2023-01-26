@@ -236,7 +236,7 @@ public class LogFile implements Strategy{
 		}
 		
 	}
-	
+
 	public Shape parseShape(String cmd) {
 		
 		if(cmd.startsWith("Point"))

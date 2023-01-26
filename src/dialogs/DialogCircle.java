@@ -25,13 +25,10 @@ public class DialogCircle extends JDialog {
 	JTextField txtX;
 	JTextField txtY;
 	JTextField txtRadius;
-	
 	private Circle circle = null;
 	Color edgeColor = null;
     Color innerColor = null;
-	
 	private boolean isSelected = false;
-	
 	JButton btnEdgeColor = new JButton(" ");
 	JButton btnInnerColor = new JButton(" ");
 

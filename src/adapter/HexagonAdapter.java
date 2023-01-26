@@ -13,9 +13,7 @@ public class HexagonAdapter extends Shape {
 	
 	public HexagonAdapter(Hexagon hexagon) {
 		this.hexagon = hexagon;
-		
 	}
-	
 	public HexagonAdapter (Point centar, int radius) {
 		this.hexagon = new Hexagon(centar.getxCoordinate(), centar.getyCoordinate(), radius);
 	}
@@ -43,50 +41,38 @@ public class HexagonAdapter extends Shape {
 			return hexagon.getR() - ((HexagonAdapter)o).hexagon.getR();
 		return 0;
 	}
-
 	@Override
 	public boolean contains(int x, int y) {
 		return hexagon.doesContain(x, y);
 	}
-
 	@Override
 	public void draw(Graphics g) {
 		this.hexagon.paint(g);
-		
 	}
-	
 	public boolean isSelected() {
 		return this.hexagon.isSelected();
 	}
-	
 	public void setSelected(boolean selected) {
 		this.hexagon.setSelected(selected);
 	}
-	
 	public Color getInnerColor() {
 		return this.hexagon.getAreaColor();
 	}
-	
 	public void setInnerColor(Color inner) {
 		this.hexagon.setAreaColor(inner);
 	}
-	
 	public Color getEdgeColor() {
 		return this.hexagon.getBorderColor();
 	}
-	
 	public void setEdgeColor(Color edge) {
 		this.hexagon.setBorderColor(edge);
 	}
-
 	public Hexagon getHexagon() {
 		return hexagon;
 	}
-	
 	public String toString() {
 		return "Hexagon Center(" + hexagon.getX() + "|"+hexagon.getY() + ")|Radius(" + hexagon.getR() + ")|EdgeColor("+getEdgeColor().getRGB()+")|InnerColor("+getInnerColor().getRGB() + ")";	
 		}
-
 	public static HexagonAdapter parse(String shape) {
 		shape = shape.replace("Hexagon Center(", "").replace(")", "");
 		String[] params = shape.split("\\|");
@@ -108,7 +94,6 @@ public class HexagonAdapter extends Shape {
 		
 		return hexagon;
 	}
-	
 	public boolean equals(Object obj) {
 		if (obj instanceof HexagonAdapter) {
 			HexagonAdapter hex = (HexagonAdapter) obj;
