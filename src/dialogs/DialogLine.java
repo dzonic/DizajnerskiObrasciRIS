@@ -88,13 +88,10 @@ public class DialogLine extends JDialog {
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnEdgeColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
-						if (edgeColor == null) edgeColor = Color.BLACK;
-						btnEdgeColor.setBackground(edgeColor);
-					}
+				btnEdgeColor.addActionListener(e -> {
+					edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
+					if (edgeColor == null) edgeColor = Color.BLACK;
+					btnEdgeColor.setBackground(edgeColor);
 				});
 				panel.add(btnEdgeColor);
 			}
@@ -105,35 +102,29 @@ public class DialogLine extends JDialog {
 			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
 				JButton btnOk = new JButton("Potvrdi");
-				btnOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							int newFirstX = Integer.parseInt(txtFirstX.getText());
-							int newFirstY = Integer.parseInt(txtFirstY.getText());
-							int newSecondX = Integer.parseInt(txtSecondX.getText());
-							int newSecondY = Integer.parseInt(txtSecondY.getText());
+				btnOk.addActionListener(arg0 -> {
+					try {
+						int newFirstX = Integer.parseInt(txtFirstX.getText());
+						int newFirstY = Integer.parseInt(txtFirstY.getText());
+						int newSecondX = Integer.parseInt(txtSecondX.getText());
+						int newSecondY = Integer.parseInt(txtSecondY.getText());
 
-							if(newFirstX < 0 || newFirstY < 0 || newSecondX < 0 || newSecondY < 0) {
-								JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
-								return;
-							}
-							line = new Line(new Point(newFirstX, newFirstY), new Point(newSecondX, newSecondY), edgeColor);
-							line.setSelected(isSelected);
-							dispose();
-						} catch (Exception ex) {
+						if(newFirstX < 0 || newFirstY < 0 || newSecondX < 0 || newSecondY < 0) {
 							JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
+							return;
 						}
+						line = new Line(new Point(newFirstX, newFirstY), new Point(newSecondX, newSecondY), edgeColor);
+						line.setSelected(isSelected);
+						dispose();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
 				panel.add(btnOk);
 			}
 			{
 				JButton btnNotOk = new JButton("Odustani");
-				btnNotOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
+				btnNotOk.addActionListener(e -> dispose());
 				panel.add(btnNotOk);
 			}
 		}

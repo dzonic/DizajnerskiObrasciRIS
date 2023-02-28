@@ -98,11 +98,7 @@ public class DialogPoint extends JDialog {
 			}
 			{
 				JButton btnNotOk = new JButton("Odustani");
-				btnNotOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
+				btnNotOk.addActionListener(e -> dispose());
 				panel.add(btnNotOk);
 			}
 		}

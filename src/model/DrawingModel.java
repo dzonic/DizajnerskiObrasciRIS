@@ -45,7 +45,7 @@ public class DrawingModel {
 		}
 	}
 	public ArrayList<Shape> getSelectedShapes(){
-		ArrayList<Shape> selectedShapes = new ArrayList<Shape>();
+		ArrayList<Shape> selectedShapes = new ArrayList<>();
 		listOfShapes.forEach(shape->{
 			if(shape.isSelected())
 				selectedShapes.add(shape);

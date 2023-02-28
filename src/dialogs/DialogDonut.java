@@ -105,13 +105,10 @@ public class DialogDonut extends JDialog {
 			}
 			{
 				btnInnerColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnInnerColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
-						if (innerColor == null) innerColor = Color.WHITE;
-						btnInnerColor.setBackground(innerColor);
-					}
+				btnInnerColor.addActionListener(e -> {
+					innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
+					if (innerColor == null) innerColor = Color.WHITE;
+					btnInnerColor.setBackground(innerColor);
 				});
 				panel.add(btnInnerColor);
 			}
@@ -146,11 +143,7 @@ public class DialogDonut extends JDialog {
 			}
 			{
 				JButton btnNotOk = new JButton("Odustani");
-				btnNotOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
+				btnNotOk.addActionListener(e -> dispose());
 				panel.add(btnNotOk);
 			}
 		}

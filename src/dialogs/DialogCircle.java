@@ -112,23 +112,21 @@ public class DialogCircle extends JDialog {
 			actionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
 				JButton btnOk = new JButton("Potvrdi");
-				btnOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							int newX = Integer.parseInt(txtX.getText());
-							int newY = Integer.parseInt(txtY.getText());
-							int newRadius = Integer.parseInt(txtRadius.getText());
+				btnOk.addActionListener(arg0 -> {
+					try {
+						int newX = Integer.parseInt(txtX.getText());
+						int newY = Integer.parseInt(txtY.getText());
+						int newRadius = Integer.parseInt(txtRadius.getText());
 
-							if(newX < 0 || newY < 0 || newRadius < 1) {
-								JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
-								return;
-							}
-							circle = new Circle(new Point(newX, newY), newRadius, edgeColor, innerColor);
-							circle.setSelected(isSelected);
-							dispose();
-						} catch (Exception ex) {
+						if(newX < 0 || newY < 0 || newRadius < 1) {
 							JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
+							return;
 						}
+						circle = new Circle(new Point(newX, newY), newRadius, edgeColor, innerColor);
+						circle.setSelected(isSelected);
+						dispose();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
 				actionPanel.add(btnOk);
