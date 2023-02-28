@@ -8,22 +8,18 @@ import shapes.Point;
 import shapes.Shape;
 
 public class HexagonAdapter extends Shape {
-	
 	private Hexagon hexagon;
-	
 	public HexagonAdapter(Hexagon hexagon) {
 		this.hexagon = hexagon;
 	}
 	public HexagonAdapter (Point centar, int radius) {
 		this.hexagon = new Hexagon(centar.getxCoordinate(), centar.getyCoordinate(), radius);
 	}
-	
 	public HexagonAdapter(Hexagon hexagon, Color inner, Color edge) {
 		this.hexagon = hexagon;
 		this.hexagon.setAreaColor(inner);
 		this.hexagon.setBorderColor(edge);
 	}
-
 	public HexagonAdapter(Point center, int radius, Color edgeColor, Color innerColor) {
 		this(center, radius);
 		this.hexagon.setBorderColor(edgeColor);
@@ -34,7 +30,6 @@ public class HexagonAdapter extends Shape {
 		hexagon.setX(byX);
 		hexagon.setY(byY);
 	}
-
 	@Override
 	public int compareTo(Object o) {
 		if(o instanceof HexagonAdapter)

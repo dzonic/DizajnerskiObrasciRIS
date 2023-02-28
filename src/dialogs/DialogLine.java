@@ -33,7 +33,6 @@ public class DialogLine extends JDialog {
 	JButton btnEdgeColor = new JButton(" ");
 	public DialogLine() {
 		setResizable(false);
-		setTitle("IT 43-2017 Bordjoski Jelena");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 300, 210);

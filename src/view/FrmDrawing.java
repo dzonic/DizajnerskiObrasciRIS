@@ -25,6 +25,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -94,7 +95,7 @@ public class FrmDrawing extends JFrame implements Observer {
 	}
 	public void setController(DrawingController controller) {
 		this.controller = controller;
-		controller.setCurrState(OPERATION_DRAWING);
+		controller.setCurrentState(OPERATION_DRAWING);
 	}
 	public int getOPERATION_EDIT_DELETE() {
 		return OPERATION_EDIT_DELETE;
@@ -140,18 +141,22 @@ public class FrmDrawing extends JFrame implements Observer {
 		
 		btnOperationDrawing.setSelected(true);
 		
-		btnOperationDrawing.addActionListener(e -> controller.setCurrState(OPERATION_DRAWING));
+		btnOperationDrawing.addActionListener(e -> controller.setCurrentState(OPERATION_DRAWING));
 		btnOperationDrawing.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationDrawing);
 		
-		btnOperationEditOrDelete.addActionListener(e -> controller.setCurrState(OPERATION_EDIT_DELETE));
+		btnOperationEditOrDelete.addActionListener(e -> controller.setCurrentState(OPERATION_EDIT_DELETE));
 		btnOperationEditOrDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationEditOrDelete);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Akcije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_3);
-		btnActionEdit.addActionListener(e -> controller.operationEdit(e));
+		/*btnActionEdit.addActionListener(e -> controller.operationEdit(e));*/
+		btnActionEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.operationEdit(e);			}
+		});
 		btnActionEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		btnActionDelete.addActionListener(e -> controller.operationDelete(e));

@@ -31,7 +31,6 @@ public class DialogCircle extends JDialog {
 	private boolean isSelected = false;
 	JButton btnEdgeColor = new JButton(" ");
 	JButton btnInnerColor = new JButton(" ");
-
 	public DialogCircle() {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -145,25 +144,20 @@ public class DialogCircle extends JDialog {
 			}
 		}
 	}
-
 	public Color getEdgeColor() {
 		return edgeColor;
 	}
-	
 	public Color getInnerColor()
 	{
 		return innerColor;
 	}
-	
 	public Circle getCircle() {
 		return circle;
 	}
-	
 	public void setPoint(Point point) {
 		txtX.setText("" + point.getxCoordinate());
 		txtY.setText("" + point.getyCoordinate());
 	}
-	
 	public void setColors(Color edgeColor, Color innerColor) {
 		this.edgeColor = edgeColor;
 		this.innerColor = innerColor;
@@ -171,7 +165,6 @@ public class DialogCircle extends JDialog {
 		btnEdgeColor.setBackground(edgeColor);
 		btnInnerColor.setBackground(innerColor);
 	}
-	
 	public void setCircle(Circle circle) {
 		txtX.setText("" + circle.getCenter().getxCoordinate());
 		txtY.setText("" + circle.getCenter().getyCoordinate());

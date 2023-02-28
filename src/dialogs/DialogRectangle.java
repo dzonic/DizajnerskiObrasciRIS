@@ -25,18 +25,14 @@ public class DialogRectangle extends JDialog {
 	JTextField txtY;
 	JTextField txtHeight;
 	JTextField txtWidth;
-	
 	private Rectangle rectangle = null;
 	Color edgeColor = null;
     Color innerColor = null;
-
 	boolean isSelected = false;
-	
 	JButton btnEdgeColor = new JButton(" ");
 	JButton btnInnerColor = new JButton(" ");
 	public DialogRectangle() {
 		setResizable(false);
-		setTitle("IT 43-2017 Jelena Bordjoski");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 300, 210);
@@ -92,13 +88,10 @@ public class DialogRectangle extends JDialog {
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnEdgeColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
-						if (edgeColor == null) edgeColor = Color.BLACK;
-						btnEdgeColor.setBackground(edgeColor);
-					}
+				btnEdgeColor.addActionListener(e -> {
+					edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
+					if (edgeColor == null) edgeColor = Color.BLACK;
+					btnEdgeColor.setBackground(edgeColor);
 				});
 				panel.add(btnEdgeColor);
 			}
@@ -109,13 +102,10 @@ public class DialogRectangle extends JDialog {
 			}
 			{
 				btnInnerColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnInnerColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
-						if (innerColor == null) innerColor = Color.WHITE;
-						btnInnerColor.setBackground(innerColor);
-					}
+				btnInnerColor.addActionListener(e -> {
+					innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
+					if (innerColor == null) innerColor = Color.WHITE;
+					btnInnerColor.setBackground(innerColor);
 				});
 				panel.add(btnInnerColor);
 			}
@@ -126,40 +116,33 @@ public class DialogRectangle extends JDialog {
 			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
 				JButton btnOk = new JButton("Potvrdi");
-				btnOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							int newX = Integer.parseInt(txtX.getText());
-							int newY = Integer.parseInt(txtY.getText());
-							int newHeight = Integer.parseInt(txtHeight.getText());
-							int newWIdth = Integer.parseInt(txtWidth.getText());
+				btnOk.addActionListener(arg0 -> {
+					try {
+						int newX = Integer.parseInt(txtX.getText());
+						int newY = Integer.parseInt(txtY.getText());
+						int newHeight = Integer.parseInt(txtHeight.getText());
+						int newWIdth = Integer.parseInt(txtWidth.getText());
 
-							if(newX < 0 || newY < 0 || newHeight < 1 || newWIdth < 1) {
-								JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
-								return;
-							}
-							rectangle = new Rectangle(new Point(newX, newY), newHeight, newWIdth, edgeColor, innerColor);
-							rectangle.setSelected(isSelected);
-							dispose();
-						} catch (Exception ex) {
+						if(newX < 0 || newY < 0 || newHeight < 1 || newWIdth < 1) {
 							JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
+							return;
 						}
+						rectangle = new Rectangle(new Point(newX, newY), newHeight, newWIdth, edgeColor, innerColor);
+						rectangle.setSelected(isSelected);
+						dispose();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
 				panel.add(btnOk);
 			}
 			{
 				JButton btnNotOk = new JButton("Odustani");
-				btnNotOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
+				btnNotOk.addActionListener(e -> dispose());
 				panel.add(btnNotOk);
 			}
 		}
 	}
-
 	public Rectangle getRectangle() {
 		return rectangle;
 	}
@@ -168,15 +151,12 @@ public class DialogRectangle extends JDialog {
 		txtX.setText("" + point.getxCoordinate());
 		txtY.setText("" + point.getyCoordinate());
 	}
-	
 	public void setColors(Color edgeColor, Color innerColor) {
 		this.edgeColor = edgeColor;
 		this.innerColor = innerColor;
 		btnEdgeColor.setBackground(edgeColor);
 		btnInnerColor.setBackground(innerColor);
 	}
-	
-
 	public Color getEdgeColor() {
 		return edgeColor;
 	}

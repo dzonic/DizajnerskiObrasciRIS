@@ -4,17 +4,14 @@ import model.DrawingModel;
 import shapes.Shape;
 
 public class CmdToFront implements Command {
-
 	private Shape shape;
 	private DrawingModel model;
 	private String log;
 	private int index;
-
 	public CmdToFront(Shape shape, DrawingModel model) {
 		this.shape = shape;
 		this.model = model;
 	}
-
 	@Override
 	public void execute() {
 
@@ -25,14 +22,7 @@ public class CmdToFront implements Command {
 		model.remove(shape);
 		model.addShapeAtIndex(shape, index + 1);
 		log = "CMD_TO_FRONT_EXECUTE:" +shape;
-		/*index = model.getIndex(shape);
-
-		model.remove(shape);
-		model.addShapeAtIndex(shape, index + 1);
-
-		log = "CMD_TO_FRONT_EXECUTE:" +shape;*/
 	}
-
 	@Override
 	public void unexecute() {
 		if (index == 0) {
@@ -41,21 +31,11 @@ public class CmdToFront implements Command {
 		model.remove(shape);
 		model.addShapeAtIndex(shape, index);
 		log = "CMD_TO_FRONT_UNEXECUTE:" +shape;
-		/*index = model.getIndex(shape);
-		model.remove(shape);
-		model.addShapeAtIndex(shape, index);
-		log = "CMD_TO_FRONT_UNEXECUTE:" +shape;*/
-
 	}
-
 	public String getLog() {
 		return log;
 	}
-
 	public void setLog(String log) {
 		this.log = log;
 	}
-
-
-
 }

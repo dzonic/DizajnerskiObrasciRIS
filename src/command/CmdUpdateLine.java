@@ -7,17 +7,14 @@ public class CmdUpdateLine implements Command {
 	private Line newState;
 	private Line original;
 	private String log;
-	
 	public CmdUpdateLine(Line oldState, Line newState) {
 	
 		this.oldState = oldState;
 		this.newState = newState;
 		original = (Line)oldState.clone();
 	}
-	
 	@Override
 	public void execute() {
-		
 		oldState.getStartPoint().setxCoordinate(newState.getStartPoint().getxCoordinate());
 		oldState.getStartPoint().setyCoordinate(newState.getStartPoint().getyCoordinate());
 		oldState.getEndPoint().setxCoordinate(newState.getEndPoint().getxCoordinate());
@@ -26,9 +23,7 @@ public class CmdUpdateLine implements Command {
 		oldState.setSelected(newState.isSelected());
 		
 		log = "CMD_UPDATE_EXECUTE:" + original + "->" + newState;
-		
 	}
-
 	@Override
 	public void unexecute() {
 		oldState.getStartPoint().setxCoordinate(original.getStartPoint().getxCoordinate());
@@ -40,14 +35,10 @@ public class CmdUpdateLine implements Command {
 		
 		log = "CMD_UPDATE_UNEXECUTE:" + newState + "->" + original;
 	}
-
 	public String getLog() {
 		return log;
 	}
-
 	public void setLog(String log) {
 		this.log = log;
 	}
-
-	
 }

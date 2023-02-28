@@ -28,9 +28,7 @@ public class DialogDonut extends JDialog {
 	private Donut donut = null;
 	Color edgeColor = null;
     Color innerColor = null;
-
 	private boolean isSelected = false;
-	
 	JButton btnEdgeColor = new JButton(" ");
 	JButton btnInnerColor = new JButton(" ");
 	public DialogDonut() {
@@ -157,7 +155,6 @@ public class DialogDonut extends JDialog {
 			}
 		}
 	}
-
 	public Donut getDonut() {
 		return donut;
 	}
@@ -174,16 +171,13 @@ public class DialogDonut extends JDialog {
 		btnEdgeColor.setBackground(edgeColor);
 		btnInnerColor.setBackground(innerColor);
 	}
-
 	public Color getEdgeColor() {
 		return edgeColor;
 	}
-	
 	public Color getInnerColor()
 	{
 		return innerColor;
 	}
-	
 	public void setDonut(Donut donut) {
 		txtX.setText("" + donut.getCenter().getxCoordinate());
 		txtY.setText("" + donut.getCenter().getyCoordinate());

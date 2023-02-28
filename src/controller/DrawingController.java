@@ -1,6 +1,6 @@
 package controller;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -24,6 +24,9 @@ import command.CmdUpdateLine;
 import command.CmdUpdatePoint;
 import command.CmdUpdateRectangle;
 import command.Command;
+import shapes.Point;
+import shapes.Rectangle;
+import shapes.Shape;
 import view.FrmDrawing;
 import shapes.*;
 import strategy.Context;
@@ -47,15 +50,14 @@ public class DrawingController implements Subject {
 	private FileSerialization fileSerialization;
 	private LogFile logFile;
 	private ArrayList <Observer> observers;
-	private int currState; // currentState
+	private int currentState; // currentState
 	private String typeOfFile = null;
 	private boolean isRedo;
 	
-	public void setCurrState(int state) {
-		this.currState = state;
+	public void setCurrentState(int state) {
+		this.currentState = state;
 		notifyObservers();
 	}
-	
 	public DrawingController (DrawingModel model, FrmDrawing frame) {
 		
 		this.model = model;
@@ -76,13 +78,12 @@ public class DrawingController implements Subject {
 
 		isRedo = false;
 	}
-
 	public void OperationDrawing(MouseEvent e) {
 		
 			Point mouseClick = new Point(e.getX(), e.getY());
 			CmdAddShape cmdAddShape;
 			
-			if (currState == frame.getOPERATION_EDIT_DELETE()) {
+			if (currentState == frame.getOPERATION_EDIT_DELETE()) {
 				model.getShapes().forEach(shape ->{
 					if(shape.contains(e.getX(), e.getY())) {
 						if(shape.isSelected()) {
@@ -160,7 +161,6 @@ public class DrawingController implements Subject {
 					execute(cmdAddShape);
 				
 				}
-				return;
 			} else if (frame.getBtnShapeDonut().isSelected()) {
 				DialogDonut dialogDonut = new DialogDonut();
 				dialogDonut.setPoint(mouseClick);
@@ -176,7 +176,6 @@ public class DrawingController implements Subject {
 					execute(cmdAddShape);
 				
 				}
-				return;
 			}
 			else if(frame.getBtnShapeHexagon().isSelected()) {
 				DialogHexagon dialogHexagon = new DialogHexagon();
@@ -193,20 +192,15 @@ public class DrawingController implements Subject {
 					execute(cmdAddShape);
 					
 				}
-				return;
 			}
-
 		}
-
 	public void selectDeselectShapeFromLog(int x, int y)
 	{
 		frame.setActiveOperation(frame.getOPERATION_EDIT_DELETE());
-		setCurrState(frame.getOPERATION_EDIT_DELETE());
+		setCurrentState(frame.getOPERATION_EDIT_DELETE());
 		MouseEvent e = new MouseEvent(frame.getView(), MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, x,y, 1, false);
 		OperationDrawing(e);
 	}
-
-
 	public void operationEdit(ActionEvent e) {
 
 		int index = model.getSelected();
@@ -225,7 +219,6 @@ public class DrawingController implements Subject {
 				
 				CmdUpdatePoint cmdUpdatePoint = new CmdUpdatePoint((Point)shape, dialogPoint.getPoint());
 				execute(cmdUpdatePoint);
-				
 			}
 		} else if (shape instanceof Line) {
 			DialogLine dialogLine = new DialogLine();
@@ -238,7 +231,6 @@ public class DrawingController implements Subject {
 				
 				CmdUpdateLine cmdUpdateLine = new CmdUpdateLine((Line)shape, dialogLine.getLine());
 				execute(cmdUpdateLine);
-				
 			}
 		} else if (shape instanceof Rectangle) {
 			DialogRectangle dialogRectangle = new DialogRectangle();
@@ -252,22 +244,16 @@ public class DrawingController implements Subject {
 				
 				CmdUpdateRectangle cmdUpdateRectangle = new CmdUpdateRectangle((Rectangle)shape, dialogRectangle.getRectangle());
 				execute(cmdUpdateRectangle);
-			
 			}
-		
 		}else if (shape instanceof Donut) {
 				DialogDonut dialogDonut = new DialogDonut();
 				dialogDonut.setDonut((Donut)shape);
 				dialogDonut.setVisible(true);
-				
 				if(dialogDonut.getDonut() != null) {
-					
 					frame.getBtnColorEdge().setBackground(dialogDonut.getEdgeColor());
 					frame.getBtnColorInner().setBackground(dialogDonut.getInnerColor());
-					
 					CmdUpdateDonut cmdUpdateDonut = new CmdUpdateDonut((Donut)shape, dialogDonut.getDonut());
 					execute(cmdUpdateDonut);
-					
 				}
 		} else if (shape instanceof Circle) {
 			DialogCircle dialogCircle = new DialogCircle();
@@ -301,7 +287,6 @@ public class DrawingController implements Subject {
 
 		}
 	}
-
 	public void operationDelete(ActionEvent e) {
 		if (model.isEmpty()) return;
 		if (JOptionPane.showConfirmDialog(null, "Da li zaista zelite da obrisete selektovane oblike?", "Potvrda", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
@@ -309,7 +294,6 @@ public class DrawingController implements Subject {
 			execute(cmdDeleteShapes);
 		} 
 	}
-
 	public void saveFile() {
 
 		if(!model.getShapes().isEmpty()) frame.getSaveFileChooser().setFileFilter(frame.getDrawFilter());
@@ -323,16 +307,12 @@ public class DrawingController implements Subject {
 
 			context.saveFile(frame.getSaveFileChooser().getSelectedFile());
 		}
-
 		frame.getSaveFileChooser().setVisible(false);
-
 	}
-
 	public void readCommand()
 	{
 		logFile.readCommand();
 	}
-
 	public void openFile() {
 
 		if(frame.getOpenFileChooser().showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -349,23 +329,22 @@ public class DrawingController implements Subject {
 		notifyObservers();
 
 	}
-
 	public void execute(Command cmd) {
 
 		if(!isRedo) unexecutedCmd.clear();
 		cmd.execute();
-		if(cmd instanceof CmdAddShape) log.addElement(((CmdAddShape)cmd).getLog());
-		else if(cmd instanceof CmdDeleteShapes) log.addElement(((CmdDeleteShapes)cmd).getLog());
-		else if(cmd instanceof CmdUpdateCircle) log.addElement(((CmdUpdateCircle)cmd).getLog());
-		else if(cmd instanceof CmdUpdateDonut) log.addElement(((CmdUpdateDonut)cmd).getLog());
-		else if(cmd instanceof CmdUpdateHexagon) log.addElement(((CmdUpdateHexagon)cmd).getLog());
-		else if(cmd instanceof CmdUpdateLine) log.addElement(((CmdUpdateLine)cmd).getLog());
-		else if(cmd instanceof CmdUpdatePoint) log.addElement(((CmdUpdatePoint)cmd).getLog());
-		else if(cmd instanceof CmdUpdateRectangle) log.addElement(((CmdUpdateRectangle)cmd).getLog());
-		else if (cmd instanceof CmdBringToBack) log.addElement(((CmdBringToBack)cmd).getLog());
-		else if(cmd instanceof CmdBringToFront) log.addElement(((CmdBringToFront)cmd).getLog());
-		else if(cmd instanceof CmdToBack) log.addElement(((CmdToBack)cmd).getLog());
-		else if(cmd instanceof CmdToFront) log.addElement(((CmdToFront)cmd).getLog());
+		if(cmd instanceof CmdAddShape) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdDeleteShapes) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateCircle) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateDonut) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateHexagon) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateLine) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdatePoint) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateRectangle) log.addElement(cmd.getLog());
+		else if (cmd instanceof CmdBringToBack) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdBringToFront) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdToBack) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdToFront) log.addElement(cmd.getLog());
 
 		executedCmd.push(cmd);
 		frame.getView().repaint();
@@ -376,18 +355,18 @@ public class DrawingController implements Subject {
 	public void unexecute(Command cmd) {
 
 		cmd.unexecute();
-		if(cmd instanceof CmdAddShape) log.addElement(((CmdAddShape)cmd).getLog());	
-		else if(cmd instanceof CmdDeleteShapes) log.addElement(((CmdDeleteShapes)cmd).getLog());
-		else if(cmd instanceof CmdUpdateCircle) log.addElement(((CmdUpdateCircle)cmd).getLog());
-		else if(cmd instanceof CmdUpdateDonut) log.addElement(((CmdUpdateDonut)cmd).getLog());
-		else if(cmd instanceof CmdUpdateHexagon) log.addElement(((CmdUpdateHexagon)cmd).getLog()); 
-		else if(cmd instanceof CmdUpdateLine) log.addElement(((CmdUpdateLine)cmd).getLog());
-		else if(cmd instanceof CmdUpdatePoint) log.addElement(((CmdUpdatePoint)cmd).getLog());
-		else if(cmd instanceof CmdUpdateRectangle) log.addElement(((CmdUpdateRectangle)cmd).getLog());
-		else if (cmd instanceof CmdBringToBack) log.addElement(((CmdBringToBack)cmd).getLog());
-		else if(cmd instanceof CmdBringToFront) log.addElement(((CmdBringToFront)cmd).getLog());
-		else if(cmd instanceof CmdToBack) log.addElement(((CmdToBack)cmd).getLog());
-		else if(cmd instanceof CmdToFront) log.addElement(((CmdToFront)cmd).getLog());
+		if(cmd instanceof CmdAddShape) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdDeleteShapes) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateCircle) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateDonut) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateHexagon) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateLine) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdatePoint) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdUpdateRectangle) log.addElement(cmd.getLog());
+		else if (cmd instanceof CmdBringToBack) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdBringToFront) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdToBack) log.addElement(cmd.getLog());
+		else if(cmd instanceof CmdToFront) log.addElement(cmd.getLog());
 		
 		unexecutedCmd.push(cmd);
 		frame.getView().repaint();
@@ -402,26 +381,21 @@ public class DrawingController implements Subject {
 		}
 	}
 
-	public void redoCommand()
-	{
+	public void redoCommand() {
 		if(!unexecutedCmd.isEmpty())
 		{
 			Command redoCmd= unexecutedCmd.pop();
 			isRedo = true;
 			execute(redoCmd);
 		}
-
 		isRedo = false;
 	}
-
-
 	public int numOfSelectedShapes() {
 		int numOfSelected = model.getSelectedShapes().size();
 		return numOfSelected;
 	}
 	
-	public void toFront()
-	{
+	public void toFront(){
 		int ind = model.getSelected();
 		Shape selectedShape = model.getShape(ind);
 
@@ -477,21 +451,16 @@ public class DrawingController implements Subject {
 	@Override
 	public void addObserver(Observer observer) {
 		observers.add(observer);
-		
 	}
-
 	@Override
 	public void removeObserver(Observer observer) {
 		observers.remove(observer);
-		
 	}
 	@Override
 	public void notifyObservers() {
-		
 		for(Observer observer: observers) {
-			observer.update(currState, numOfSelectedShapes(), model.getShapes().size(), unexecutedCmd.size(),
+			observer.update(currentState, numOfSelectedShapes(), model.getShapes().size(), unexecutedCmd.size(),
 					executedCmd.size(),log.size(), typeOfFile);
 		}
-		
 	}
 }

@@ -28,5 +28,4 @@ public class CmdAddShape implements Command  {
 	public void setLog(String log) {
 		this.log = log;
 	}
-
 }

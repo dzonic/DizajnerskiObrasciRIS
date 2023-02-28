@@ -3,12 +3,10 @@ package command;
 import shapes.Donut;
 
 public class CmdUpdateDonut implements Command{
-
 	private Donut oldState;
 	private Donut newState;
 	private Donut original;
 	private String log;
-	
 	public CmdUpdateDonut(Donut oldState, Donut newState) {
 		this.oldState = oldState;
 		this.newState = newState;
@@ -16,7 +14,6 @@ public class CmdUpdateDonut implements Command{
 	}
 	@Override
 	public void execute() {
-		
 		oldState.getCenter().setxCoordinate(newState.getCenter().getxCoordinate());
 		oldState.getCenter().setyCoordinate(newState.getCenter().getyCoordinate());
 		oldState.setRadius(newState.getRadius());
@@ -27,7 +24,6 @@ public class CmdUpdateDonut implements Command{
 		
 		log = "CMD_UPDATE_EXECUTE:" + original + "->" + newState;
 	}
-
 	@Override
 	public void unexecute() {
 		oldState.setCenter(original.getCenter());
@@ -39,13 +35,10 @@ public class CmdUpdateDonut implements Command{
 		
 		log = "CMD_UPDATE_UNEXECUTE:" + newState + "->" + original;
 	}
-	
 	public String getLog() {
 		return log;
 	}
 	public void setLog(String log) {
 		this.log = log;
 	}
-
-	
 }

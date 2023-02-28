@@ -26,18 +26,14 @@ public class DialogHexagon extends JDialog {
 	JTextField txtX;
 	JTextField txtY;
 	JTextField txtRadius;
-	
 	private HexagonAdapter hexagon= null;
 	Color edgeColor = null;
 	Color innerColor = null;
-
 	boolean isSelected = false;
-	
 	JButton btnEdgeColor = new JButton(" ");
 	JButton btnInnerColor = new JButton(" ");
 	public DialogHexagon() {
 		setResizable(false);
-		setTitle("IT 43-2017 Bordjoski Jelena");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setBounds(100, 100, 264, 179);
@@ -83,13 +79,10 @@ public class DialogHexagon extends JDialog {
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnEdgeColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
-						if (edgeColor == null) edgeColor = Color.BLACK;
-						btnEdgeColor.setBackground(edgeColor);
-					}
+				btnEdgeColor.addActionListener(e -> {
+					edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
+					if (edgeColor == null) edgeColor = Color.BLACK;
+					btnEdgeColor.setBackground(edgeColor);
 				});
 				panel.add(btnEdgeColor);
 			}
@@ -100,13 +93,10 @@ public class DialogHexagon extends JDialog {
 			}
 			{
 				btnInnerColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnInnerColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
-						if (innerColor == null) innerColor = Color.WHITE;
-						btnInnerColor.setBackground(innerColor);
-					}
+				btnInnerColor.addActionListener(e -> {
+					innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
+					if (innerColor == null) innerColor = Color.WHITE;
+					btnInnerColor.setBackground(innerColor);
 				});
 				panel.add(btnInnerColor);
 			}
@@ -117,48 +107,39 @@ public class DialogHexagon extends JDialog {
 			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
 				JButton btnOk = new JButton("Potvrdi");
-				btnOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							int newX = Integer.parseInt(txtX.getText());
-							int newY = Integer.parseInt(txtY.getText());
-							int newRadius = Integer.parseInt(txtRadius.getText());
+				btnOk.addActionListener(arg0 -> {
+					try {
+						int newX = Integer.parseInt(txtX.getText());
+						int newY = Integer.parseInt(txtY.getText());
+						int newRadius = Integer.parseInt(txtRadius.getText());
 
-							if(newX < 0 || newY < 0 || newRadius < 1) {
-								JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
-								return;
-							}
-							hexagon = new HexagonAdapter(new Point(newX, newY), newRadius, edgeColor, innerColor);
-							hexagon.setSelected(isSelected);
-							dispose();
-						} catch (Exception ex) {
+						if(newX < 0 || newY < 0 || newRadius < 1) {
 							JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
+							return;
 						}
+						hexagon = new HexagonAdapter(new Point(newX, newY), newRadius, edgeColor, innerColor);
+						hexagon.setSelected(isSelected);
+						dispose();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
 				panel.add(btnOk);
 			}
 			{
 				JButton btnNotOk = new JButton("Odustani");
-				btnNotOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
+				btnNotOk.addActionListener(e -> dispose());
 				panel.add(btnNotOk);
 			}
 		}
 	}
-
 	public HexagonAdapter getHexagon() {
 		return hexagon;
 	}
-	
 	public void setPoint(Point point) {
 		txtX.setText("" + point.getxCoordinate());
 		txtY.setText("" + point.getyCoordinate());
 	}
-	
 	public void setColors(Color edgeColor, Color innerColor) {
 		this.edgeColor = edgeColor;
 		this.innerColor = innerColor;
@@ -166,11 +147,9 @@ public class DialogHexagon extends JDialog {
 		btnEdgeColor.setBackground(edgeColor);
 		btnInnerColor.setBackground(innerColor);
 	}
-
 	public Color getEdgeColor() {
 		return edgeColor;
 	}
-	
 	public Color getInnerColor()
 	{
 		return innerColor;

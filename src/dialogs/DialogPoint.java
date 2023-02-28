@@ -25,7 +25,6 @@ public class DialogPoint extends JDialog {
 	private Point point = null;
 	private Color edgeColor = null;
 	boolean isSelected = false;
-	
 	JButton btnEdgeColor = new JButton(" ");
 	public DialogPoint() {
 		setResizable(false);
@@ -64,13 +63,10 @@ public class DialogPoint extends JDialog {
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnEdgeColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
-						if (edgeColor == null) edgeColor = Color.BLACK;
-						btnEdgeColor.setBackground(edgeColor);
-					}
+				btnEdgeColor.addActionListener(e -> {
+					edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
+					if (edgeColor == null) edgeColor = Color.BLACK;
+					btnEdgeColor.setBackground(edgeColor);
 				});
 				panel.add(btnEdgeColor);
 			}
@@ -82,22 +78,20 @@ public class DialogPoint extends JDialog {
 			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
 				JButton btnOk = new JButton("Potvrdi");
-				btnOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							int newX = Integer.parseInt(txtX.getText());
-							int newY = Integer.parseInt(txtY.getText());
+				btnOk.addActionListener(arg0 -> {
+					try {
+						int newX = Integer.parseInt(txtX.getText());
+						int newY = Integer.parseInt(txtY.getText());
 
-							if(newX < 0 || newY < 0) {
-								JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
-								return;
-							}
-							point = new Point(newX, newY, edgeColor);
-							point.setSelected(isSelected);
-							dispose();
-						} catch (Exception ex) {
+						if(newX < 0 || newY < 0) {
 							JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
+							return;
 						}
+						point = new Point(newX, newY, edgeColor);
+						point.setSelected(isSelected);
+						dispose();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
 				panel.add(btnOk);
@@ -113,21 +107,17 @@ public class DialogPoint extends JDialog {
 			}
 		}
 	}
-
 	public Point getPoint() {
 		return point;
 	}
-	
 	public void setEdgeColor(Color edgeColor)
 	{
 		this.edgeColor = edgeColor;
 	}
-	
 	public Color getEdgeColor()
 	{
 		return edgeColor;
 	}
-	
 	public void setPoint(Point point) {
 		txtX.setText("" + point.getxCoordinate());
 		txtY.setText("" + point.getyCoordinate());

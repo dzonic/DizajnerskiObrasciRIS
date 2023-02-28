@@ -3,18 +3,15 @@ package command;
 import adapter.HexagonAdapter;
 
 public class CmdUpdateHexagon implements Command {
-
 	private HexagonAdapter oldState;
 	private HexagonAdapter newState;
 	private HexagonAdapter original;
 	private String log;
-	
 	public CmdUpdateHexagon(HexagonAdapter oldState, HexagonAdapter newState) {
 		this.oldState = oldState;
 		this.newState = newState;
 		original = (HexagonAdapter)oldState.clone();
 	}
-	
 	@Override
 	public void execute() {
 		oldState.getHexagon().setX(newState.getHexagon().getX());
@@ -25,9 +22,7 @@ public class CmdUpdateHexagon implements Command {
 		oldState.setSelected(newState.isSelected());
 		
 		log = "CMD_UPDATE_EXECUTE:" + original + "->" + newState;
-		
 	}
-
 	@Override
 	public void unexecute() {
 		oldState.getHexagon().setX(original.getHexagon().getX());
@@ -39,15 +34,10 @@ public class CmdUpdateHexagon implements Command {
 		
 		log = "CMD_UPDATE_UNEXECUTE:" + newState + "->" + original;
 	}
-
 	public String getLog() {
 		return log;
 	}
-
 	public void setLog(String log) {
 		this.log = log;
 	}
-	
-	
-
 }
