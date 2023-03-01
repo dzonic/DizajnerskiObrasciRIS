@@ -90,7 +90,7 @@ public class DialogPoint extends JDialog {
 						point = new Point(newX, newY, edgeColor);
 						point.setSelected(isSelected);
 						dispose();
-					} catch (Exception ex) {
+					} catch (Exception exception) {
 						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
@@ -119,7 +119,6 @@ public class DialogPoint extends JDialog {
 		txtY.setText("" + point.getyCoordinate());
 		edgeColor = point.getEdgeColor();
 		isSelected = point.isSelected();
-		
 		btnEdgeColor.setBackground(point.getEdgeColor());
 	}
 }

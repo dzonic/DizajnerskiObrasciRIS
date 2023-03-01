@@ -88,13 +88,10 @@ public class DialogDonut extends JDialog {
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnEdgeColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
-						if (edgeColor == null) edgeColor = Color.BLACK;
-						btnEdgeColor.setBackground(edgeColor);
-					}
+				btnEdgeColor.addActionListener(e -> {
+					edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
+					if (edgeColor == null) edgeColor = Color.BLACK;
+					btnEdgeColor.setBackground(edgeColor);
 				});
 				panel.add(btnEdgeColor);
 			}
@@ -119,24 +116,22 @@ public class DialogDonut extends JDialog {
 			panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			{
 				JButton btnOk = new JButton("Potvrdi");
-				btnOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							int newX = Integer.parseInt(txtX.getText());
-							int newY = Integer.parseInt(txtY.getText());
-							int newRadius = Integer.parseInt(txtRadius.getText());
-							int newInnerRadius = Integer.parseInt(txtInnerRadius.getText());
+				btnOk.addActionListener(arg0 -> {
+					try {
+						int newX = Integer.parseInt(txtX.getText());
+						int newY = Integer.parseInt(txtY.getText());
+						int newRadius = Integer.parseInt(txtRadius.getText());
+						int newInnerRadius = Integer.parseInt(txtInnerRadius.getText());
 
-							if(newX < 0 || newY < 0 || newRadius < 1 || newInnerRadius < 1 || newInnerRadius >= newRadius) {
-								JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
-								return;
-							}
-							donut = new Donut(new Point(newX, newY), newRadius, newInnerRadius, edgeColor, innerColor);
-							donut.setSelected(isSelected);
-							dispose();
-						} catch (Exception ex) {
+						if(newX < 0 || newY < 0 || newRadius < 1 || newInnerRadius < 1 || newInnerRadius >= newRadius) {
 							JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
+							return;
 						}
+						donut = new Donut(new Point(newX, newY), newRadius, newInnerRadius, edgeColor, innerColor);
+						donut.setSelected(isSelected);
+						dispose();
+					} catch (Exception exception) {
+						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
 				panel.add(btnOk);

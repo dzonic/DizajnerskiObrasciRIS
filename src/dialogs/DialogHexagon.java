@@ -120,7 +120,7 @@ public class DialogHexagon extends JDialog {
 						hexagon = new HexagonAdapter(new Point(newX, newY), newRadius, edgeColor, innerColor);
 						hexagon.setSelected(isSelected);
 						dispose();
-					} catch (Exception ex) {
+					} catch (Exception exception) {
 						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
@@ -143,7 +143,6 @@ public class DialogHexagon extends JDialog {
 	public void setColors(Color edgeColor, Color innerColor) {
 		this.edgeColor = edgeColor;
 		this.innerColor = innerColor;
-		
 		btnEdgeColor.setBackground(edgeColor);
 		btnInnerColor.setBackground(innerColor);
 	}
@@ -161,7 +160,6 @@ public class DialogHexagon extends JDialog {
 		edgeColor = hexagon.getHexagon().getBorderColor();
 		innerColor = hexagon.getHexagon().getAreaColor();
 		isSelected = hexagon.isSelected();
-		
 		setColors(hexagon.getEdgeColor(), hexagon.getInnerColor());
 	}
 }

@@ -78,13 +78,10 @@ public class DialogCircle extends JDialog {
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnEdgeColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
-						if (edgeColor == null) edgeColor = Color.BLACK;
-						btnEdgeColor.setBackground(edgeColor);
-					}
+				btnEdgeColor.addActionListener(e -> {
+					edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
+					if (edgeColor == null) edgeColor = Color.BLACK;
+					btnEdgeColor.setBackground(edgeColor);
 				});
 				mainPanel.add(btnEdgeColor);
 			}
@@ -95,13 +92,10 @@ public class DialogCircle extends JDialog {
 			}
 			{
 				btnInnerColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnInnerColor.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
-						if (innerColor == null) innerColor = Color.WHITE;
-						btnInnerColor.setBackground(innerColor);
-					}
+				btnInnerColor.addActionListener(e -> {
+					innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnjosti", innerColor);
+					if (innerColor == null) innerColor = Color.WHITE;
+					btnInnerColor.setBackground(innerColor);
 				});
 				mainPanel.add(btnInnerColor);
 			}
@@ -125,7 +119,7 @@ public class DialogCircle extends JDialog {
 						circle = new Circle(new Point(newX, newY), newRadius, edgeColor, innerColor);
 						circle.setSelected(isSelected);
 						dispose();
-					} catch (Exception ex) {
+					} catch (Exception exception) {
 						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
@@ -133,11 +127,7 @@ public class DialogCircle extends JDialog {
 			}
 			{
 				JButton btnNotOk = new JButton("Odustani");
-				btnNotOk.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
+				btnNotOk.addActionListener(e -> dispose());
 				actionPanel.add(btnNotOk);
 			}
 		}

@@ -27,9 +27,7 @@ public class DialogLine extends JDialog {
 	JTextField txtSecondY;
 	private Line line = null;
 	Color edgeColor = null;
-
 	private boolean isSelected = false;
-	
 	JButton btnEdgeColor = new JButton(" ");
 	public DialogLine() {
 		setResizable(false);
@@ -116,7 +114,7 @@ public class DialogLine extends JDialog {
 						line = new Line(new Point(newFirstX, newFirstY), new Point(newSecondX, newSecondY), edgeColor);
 						line.setSelected(isSelected);
 						dispose();
-					} catch (Exception ex) {
+					} catch (Exception exception) {
 						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});
@@ -149,7 +147,6 @@ public class DialogLine extends JDialog {
 		txtSecondY.setText("" + line.getEndPoint().getyCoordinate());
 		edgeColor = line.getEdgeColor();
 		isSelected = line.isSelected();
-		
 		btnEdgeColor.setBackground(line.getEdgeColor());
 	}
 }

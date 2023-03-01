@@ -159,7 +159,7 @@ public class FrmDrawing extends JFrame implements Observer {
 		});
 		btnActionEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		btnActionDelete.addActionListener(e -> controller.operationDelete(e));
+		btnActionDelete.addActionListener(e -> controller.operationDelete());
 		btnActionDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		btnUndo.addActionListener(e -> controller.undoCommand());

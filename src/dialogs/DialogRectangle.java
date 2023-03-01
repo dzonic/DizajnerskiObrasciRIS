@@ -130,7 +130,7 @@ public class DialogRectangle extends JDialog {
 						rectangle = new Rectangle(new Point(newX, newY), newHeight, newWIdth, edgeColor, innerColor);
 						rectangle.setSelected(isSelected);
 						dispose();
-					} catch (Exception ex) {
+					} catch (Exception exeption) {
 						JOptionPane.showMessageDialog(null, "Uneli ste pogresne podatke!", "Greska!", JOptionPane.ERROR_MESSAGE);
 					}
 				});

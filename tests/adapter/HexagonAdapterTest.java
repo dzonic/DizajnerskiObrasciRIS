@@ -19,18 +19,8 @@ class HexagonAdapterTest {
     public void setUp() {
         graphics = mock(Graphics.class);
         hexagonAdapter = new HexagonAdapter(new Hexagon(1, 2, 3), Color.BLACK, Color.WHITE);
-
         hexagonAdapter = new HexagonAdapter(new Hexagon(1, 2, 3));
     }
-/*
-    @Test
-    public void testDraw() {
-        Hexagon hexagon = mock(Hexagon.class);
-        HexagonAdapter hexagonAdapter = new HexagonAdapter(hexagon);
-        hexagonAdapter.draw(graphics);
-        verify(hexagon).paint(graphics);
-    } */
-
     @Test
     public void testContainsTrueExcepted() {
         hexagonAdapter = new HexagonAdapter(new Hexagon(1, 2, 3));

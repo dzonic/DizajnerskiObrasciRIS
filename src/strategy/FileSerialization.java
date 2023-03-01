@@ -27,11 +27,9 @@ public class FileSerialization implements Strategy {
 			outputObjStream.writeObject(model.getShapes());
 			outputObjStream.close();
 			fileOutputStream.close();
-			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
 	}
 	@Override
 	public void openFile(File file) {
@@ -42,7 +40,6 @@ public class FileSerialization implements Strategy {
 			model.addAll(listOfShapes);
 			inputObjStream.close();
 			fileInputStream.close();
-			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

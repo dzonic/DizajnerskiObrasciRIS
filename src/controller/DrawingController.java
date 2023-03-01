@@ -66,15 +66,15 @@ public class DrawingController implements Subject {
 		this.edgeColor = Color.BLACK;
 		this.innerColor = Color.WHITE;
 		
-		this.executedCmd = new Stack<Command>();
-		this.unexecutedCmd = new Stack<Command>();
+		this.executedCmd = new Stack<>();
+		this.unexecutedCmd = new Stack<>();
 		
 		this.log = frame.getDefaultListLogModel();
 		
 		this.fileSerialization = new FileSerialization(model);
 		this.logFile = new LogFile(this, model, frame);
 		
-		this.observers = new ArrayList<Observer>();
+		this.observers = new ArrayList<>();
 
 		isRedo = false;
 	}
@@ -115,7 +115,7 @@ public class DrawingController implements Subject {
 					point.setEdgeColor(frame.getBtnColorEdge().getBackground());
 					cmdAddShape = new CmdAddShape(point, model);
 					execute(cmdAddShape);
-				return;
+
 			} else if (frame.getBtnShapeLine().isSelected()) {
 				
 				if (lineWaitingForSecondPoint) {
@@ -127,10 +127,9 @@ public class DrawingController implements Subject {
 					lineWaitingForSecondPoint = false;
 					return;
 				}
-
 				lineFirstPoint = mouseClick;
 				lineWaitingForSecondPoint = true;
-				return;
+
 			} else if (frame.getBtnShapeRectangle().isSelected()) {
 				DialogRectangle dialogRectangle = new DialogRectangle();
 				dialogRectangle.setPoint(mouseClick);
@@ -194,8 +193,7 @@ public class DrawingController implements Subject {
 				}
 			}
 		}
-	public void selectDeselectShapeFromLog(int x, int y)
-	{
+	public void selectDeselectShapeFromLog(int x, int y) {
 		frame.setActiveOperation(frame.getOPERATION_EDIT_DELETE());
 		setCurrentState(frame.getOPERATION_EDIT_DELETE());
 		MouseEvent e = new MouseEvent(frame.getView(), MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, x,y, 1, false);
@@ -287,7 +285,7 @@ public class DrawingController implements Subject {
 
 		}
 	}
-	public void operationDelete(ActionEvent e) {
+	public void operationDelete() {
 		if (model.isEmpty()) return;
 		if (JOptionPane.showConfirmDialog(null, "Da li zaista zelite da obrisete selektovane oblike?", "Potvrda", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 			CmdDeleteShapes cmdDeleteShapes = new CmdDeleteShapes(model.getSelectedShapes(), model);
@@ -373,8 +371,7 @@ public class DrawingController implements Subject {
 		notifyObservers();
 	}
 
-	public void undoCommand()
-	{
+	public void undoCommand() {
 		if(!executedCmd.isEmpty()) {
 			Command undoCmd= executedCmd.pop();
 			unexecute(undoCmd);
@@ -396,10 +393,10 @@ public class DrawingController implements Subject {
 	}
 	
 	public void toFront(){
-		int ind = model.getSelected();
-		Shape selectedShape = model.getShape(ind);
+		int index = model.getSelected();
+		Shape selectedShape = model.getShape(index);
 
-		if(ind == model.getShapes().size()-1) return;
+		if(index == model.getShapes().size()-1) return;
 
 		CmdToFront cmdToFront = new CmdToFront(selectedShape, model);
 		execute(cmdToFront);
@@ -411,16 +408,15 @@ public class DrawingController implements Subject {
 
 		if(index == model.getShapes().size() -1) return;
 
-
 		CmdBringToFront cmdBringToFront = new CmdBringToFront(selectedShape, model);
 		execute(cmdBringToFront);
 	}
 	
 	public void toBack() {
-		int ind = model.getSelected();
-		Shape selectedShape = model.getShape(ind);
+		int index = model.getSelected();
+		Shape selectedShape = model.getShape(index);
 		
-		if(ind == 0) return;
+		if(index == 0) return;
 		
 		CmdToBack cmdToBack = new CmdToBack(selectedShape, model);
 		execute(cmdToBack);

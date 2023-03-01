@@ -39,13 +39,11 @@ import shapes.Shape;
 import view.FrmDrawing;
 
 public class LogFile implements Strategy {
-
 	private DrawingController controller;
 	private DrawingModel model;
 	private FrmDrawing frame;
 	private BufferedReader reader;
 	private BufferedWriter writer;
-
 	public LogFile(DrawingController controller, DrawingModel model, FrmDrawing frame) {
 		this.controller = controller;
 		this.model = model;
