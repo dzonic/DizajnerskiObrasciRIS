@@ -11,14 +11,12 @@ import model.DrawingModel;
 import shapes.Shape;
 
 public class FileSerialization implements Strategy {
-	
 	private FileOutputStream fileOutputStream;
 	private FileInputStream fileInputStream;
 	private DrawingModel model;
 	public FileSerialization(DrawingModel model) {
 		this.model = model;
 	}
-
 	@Override
 	public void saveFile(File file) {
 		try {
@@ -27,8 +25,8 @@ public class FileSerialization implements Strategy {
 			outputObjStream.writeObject(model.getShapes());
 			outputObjStream.close();
 			fileOutputStream.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception exception) {
+			System.out.println(exception.getMessage());
 		}
 	}
 	@Override
@@ -40,8 +38,8 @@ public class FileSerialization implements Strategy {
 			model.addAll(listOfShapes);
 			inputObjStream.close();
 			fileInputStream.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception exception) {
+			System.out.println(exception.getMessage());
 		}
 		
 	}

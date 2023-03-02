@@ -8,7 +8,6 @@ public class CmdUpdateLine implements Command {
 	private Line original;
 	private String log;
 	public CmdUpdateLine(Line oldState, Line newState) {
-	
 		this.oldState = oldState;
 		this.newState = newState;
 		original = (Line)oldState.clone();

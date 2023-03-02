@@ -22,7 +22,6 @@ public class CmdBringToBack implements Command{
 	}
 	@Override
 	public void unexecute() {
-		
 		if(index > model.getShapes().size()-1) return;
 		
 		model.remove(shape);

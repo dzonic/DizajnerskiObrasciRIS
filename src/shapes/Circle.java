@@ -41,7 +41,6 @@ public class Circle extends Shape {
 	@Override
 	public void moveBy(int byX, int byY) {
 		center.moveBy(byX, byY);
-		
 	}
 	@Override
 	public int compareTo(Object o) {

@@ -84,9 +84,6 @@ public class Rectangle extends Shape {
 	public Point getUpperLeftPoint() {
 		return upperLeftPoint;
 	}
-	public void setUpperLeftPoint(Point upperLeftPoint) {
-		this.upperLeftPoint = upperLeftPoint;
-	}
 	public int getWidth() {
 		return width;
 	}

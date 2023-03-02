@@ -25,9 +25,9 @@ public class DialogDonut extends JDialog {
 	JTextField txtY;
 	JTextField txtRadius;
 	JTextField txtInnerRadius;
-	private Donut donut = null;
-	Color edgeColor = null;
-    Color innerColor = null;
+	private Donut donut;
+	Color edgeColor;
+    Color innerColor;
 	private boolean isSelected = false;
 	JButton btnEdgeColor = new JButton(" ");
 	JButton btnInnerColor = new JButton(" ");

@@ -7,7 +7,6 @@ public class CmdAddShape implements Command  {
 	private Shape shape;
 	private DrawingModel model;
 	private String log;
-
 	public CmdAddShape (Shape shape, DrawingModel model) {
 		this.shape = shape;
 		this.model = model;

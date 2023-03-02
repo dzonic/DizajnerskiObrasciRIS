@@ -14,7 +14,6 @@ public class CmdToFront implements Command {
 	}
 	@Override
 	public void execute() {
-
 		index = model.getIndex(shape);
 		if (index == model.getShapes().size() - 1) {
 			return;
@@ -25,9 +24,7 @@ public class CmdToFront implements Command {
 	}
 	@Override
 	public void unexecute() {
-		if (index == 0) {
-			return;
-		}
+		if (index == 0) { return; }
 		model.remove(shape);
 		model.addShapeAtIndex(shape, index);
 		log = "CMD_TO_FRONT_UNEXECUTE:" +shape;

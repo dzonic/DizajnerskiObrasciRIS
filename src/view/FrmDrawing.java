@@ -108,8 +108,8 @@ public class FrmDrawing extends JFrame implements Observer {
 			try {
 				FrmDrawing frame = new FrmDrawing();
 				frame.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Exception exception) {
+				exception.printStackTrace();
 			}
 		});
 	}
@@ -155,7 +155,7 @@ public class FrmDrawing extends JFrame implements Observer {
 		/*btnActionEdit.addActionListener(e -> controller.operationEdit(e));*/
 		btnActionEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.operationEdit(e);			}
+				controller.operationEdit();			}
 		});
 		btnActionEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
@@ -471,7 +471,6 @@ public class FrmDrawing extends JFrame implements Observer {
 			btnColorEdge.setEnabled(false);
 			btnColorInner.setEnabled(false);
 		}
-		
 	}
 	public JToggleButton getBtnShapePoint() {
 		return btnShapePoint;
@@ -497,5 +496,4 @@ public class FrmDrawing extends JFrame implements Observer {
 	public JToggleButton getBtnShapeHexagon() {
 		return btnShapeHexagon;
 	}
-
 }

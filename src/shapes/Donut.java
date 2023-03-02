@@ -82,7 +82,6 @@ public class Donut extends Circle {
 	public String toString() {
 		return "Donut Center(" + super.getCenter().getxCoordinate() + "|" + super.getCenter().getyCoordinate() + ")|Radius(" + super.getRadius() + ")|InnerRadius("+ innerRadius +")|EdgeColor("+getEdgeColor().getRGB()+")|InnerColor("+getInnerColor().getRGB() +")";
 	}
-	
 	public static Donut parse(String shape) {
 		shape = shape.replace("Donut Center(", "").replace(")", "");
 		

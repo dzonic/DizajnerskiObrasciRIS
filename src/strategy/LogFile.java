@@ -59,16 +59,16 @@ public class LogFile implements Strategy {
 				writer.newLine();
 			}
 			writer.close();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception exception) {
+			System.out.println(exception.getMessage());
 		}
 	}
 	@Override
 	public void openFile(File file) {
 		try {
 			reader = new BufferedReader(new FileReader(file));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception exception) {
+			System.out.println(exception.getMessage());
 		}
 	}
 	public void readCommand() {
@@ -88,6 +88,12 @@ public class LogFile implements Strategy {
 					controller.execute(command);
 					break;
 				case "CMD_ADD_UNEXECUTE":
+				case "CMD_TO_FRONT_UNEXECUTE":
+				case "CMD_TO_BACK_UNEXECUTE":
+				case "CMD_BRING_TO_FRONT_UNEXECUTE":
+				case "CMD_BRING_TO_BACK_UNEXECUTE":
+				case "CMD_DELETE_UNEXECUTE":
+				case "CMD_UPDATE_UNEXECUTE":
 					controller.undoCommand();
 					break;
 				case "CMD_BRING_TO_BACK_EXECUTE":
@@ -95,32 +101,20 @@ public class LogFile implements Strategy {
 					command = new CmdBringToBack(model.getShape(index), model);
 					controller.execute(command);
 					break;
-				case "CMD_BRING_TO_BACK_UNEXECUTE":
-					controller.undoCommand();
-					break;
 				case "CMD_BRING_TO_FRONT_EXECUTE":
 					index = model.getIndex(parseShape(cmdOperation[1]));
 					command = new CmdBringToFront(model.getShape(index), model);
 					controller.execute(command);
-					break;
-				case "CMD_BRING_TO_FRONT_UNEXECUTE":
-					controller.undoCommand();
 					break;
 				case "CMD_TO_BACK_EXECUTE":
 					index = model.getIndex(parseShape(cmdOperation[1]));
 					command = new CmdToBack(model.getShape(index), model);
 					controller.execute(command);
 					break;
-				case "CMD_TO_BACK_UNEXECUTE":
-					controller.undoCommand();
-					break;
 				case "CMD_TO_FRONT_EXECUTE":
 					index = model.getIndex(parseShape(cmdOperation[1]));
 					command = new CmdToFront(model.getShape(index), model);
 					controller.execute(command);
-					break;
-				case "CMD_TO_FRONT_UNEXECUTE":
-					controller.undoCommand();
 					break;
 				case "CMD_DELETE_EXECUTE":
 					String shapes = cmdOperation[1].replace("[", "").replace("]", "");
@@ -130,12 +124,8 @@ public class LogFile implements Strategy {
 					for (int i = 0; i < s.length; i++) {
 						shapesForDelete.add(parseShape(s[i].trim()));
 					}
-
 					command = new CmdDeleteShapes(shapesForDelete, model);
 					controller.execute(command);
-					break;
-				case "CMD_DELETE_UNEXECUTE":
-					controller.undoCommand();
 					break;
 				case "CMD_UPDATE_EXECUTE":
 
@@ -197,9 +187,6 @@ public class LogFile implements Strategy {
 						controller.execute(command);
 					}
 					break;
-				case "CMD_UPDATE_UNEXECUTE":
-					controller.undoCommand();
-					break;
 				case "CMD_SELECT":
 					String e = cmdOperation[2];
 					String[] pointForSelect = e.split("\\|");
@@ -218,11 +205,10 @@ public class LogFile implements Strategy {
 				default:
 					break;
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
 		}
 	}
-
 	public Shape parseShape(String cmd) {
 		Map<String, Function<String, Shape>> shapeParsers = new HashMap<>();
 		shapeParsers.put("Point", Point::parse);
