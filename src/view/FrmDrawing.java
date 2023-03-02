@@ -152,11 +152,8 @@ public class FrmDrawing extends JFrame implements Observer {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Akcije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_3);
-		/*btnActionEdit.addActionListener(e -> controller.operationEdit(e));*/
-		btnActionEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.operationEdit();			}
-		});
+
+		btnActionEdit.addActionListener(e -> controller.operationEdit());
 		btnActionEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		btnActionDelete.addActionListener(e -> controller.operationDelete());
@@ -257,8 +254,8 @@ public class FrmDrawing extends JFrame implements Observer {
 			openFileChooser.setFileFilter(logFilter);
 
 			controller.openFile();
-
 		});
+
 		btnSaveFile.addActionListener(e -> {
 			saveFileChooser = new JFileChooser();
 			saveFileChooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
@@ -402,15 +399,13 @@ public class FrmDrawing extends JFrame implements Observer {
 		
 		if(typeOfFile == "Log") btnReadCommand.setEnabled(true);
 		else btnReadCommand.setEnabled(false);
-		
-		
+
 		if(numOfUnexecutedCmd == 0) btnRedo.setEnabled(false);
 		else btnRedo.setEnabled(true);
 		if(numOfExecutedCmd == 0)btnUndo.setEnabled(false);
 		else btnUndo.setEnabled(true);
 
 		if(OPERATION_DRAWING == currState) {
-
 			btnActionEdit.setEnabled(false);
 			btnActionDelete.setEnabled(false);
 			btnBringToBack.setEnabled(false);
@@ -428,48 +423,39 @@ public class FrmDrawing extends JFrame implements Observer {
 			btnColorEdge.setEnabled(true);
 			btnColorInner.setEnabled(true);
 		}
-		
 		if(OPERATION_EDIT_DELETE == currState) {
-
-			if(numOfSelectedShapes>1)
-			{
+			if(numOfSelectedShapes>1) {
 				btnActionEdit.setEnabled(false);
 				btnBringToBack.setEnabled(false);
 				btnBringToFront.setEnabled(false);
 				btnToBack.setEnabled(false);
 				btnToFront.setEnabled(false);
-			}
-			else if(numOfSelectedShapes == 1)
-			{
+			} else if(numOfSelectedShapes == 1) {
 				btnActionEdit.setEnabled(true);
 				btnBringToBack.setEnabled(true);
 				btnBringToFront.setEnabled(true);
 				btnToBack.setEnabled(true);
 				btnToFront.setEnabled(true);
-			}
-			else
-			{
+			} else {
 				btnActionEdit.setEnabled(true);
 				btnBringToBack.setEnabled(false);
 				btnBringToFront.setEnabled(false);
 				btnToBack.setEnabled(false);
 				btnToFront.setEnabled(false);
 			}
-			
 			if(numOfSelectedShapes >=1)
 				btnActionDelete.setEnabled(true);
-			else 
+			else
 				btnActionDelete.setEnabled(false);
+				btnShapePoint.setEnabled(false);
+				btnShapeLine.setEnabled(false);
+				btnShapeRectangle.setEnabled(false);
+				btnShapeCircle.setEnabled(false);
+				btnShapeDonut.setEnabled(false);
+				btnShapeHexagon.setEnabled(false);
 			
-			btnShapePoint.setEnabled(false);
-			btnShapeLine.setEnabled(false);
-			btnShapeRectangle.setEnabled(false);
-			btnShapeCircle.setEnabled(false);
-			btnShapeDonut.setEnabled(false);
-			btnShapeHexagon.setEnabled(false);
-			
-			btnColorEdge.setEnabled(false);
-			btnColorInner.setEnabled(false);
+				btnColorEdge.setEnabled(false);
+				btnColorInner.setEnabled(false);
 		}
 	}
 	public JToggleButton getBtnShapePoint() {
