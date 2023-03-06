@@ -63,7 +63,7 @@ public class DialogPoint extends JDialog {
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				btnEdgeColor.addActionListener(e -> {
+				btnEdgeColor.addActionListener(event -> {
 					edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", edgeColor);
 					if (edgeColor == null) edgeColor = Color.BLACK;
 					btnEdgeColor.setBackground(edgeColor);
@@ -98,7 +98,7 @@ public class DialogPoint extends JDialog {
 			}
 			{
 				JButton btnNotOk = new JButton("Odustani");
-				btnNotOk.addActionListener(e -> dispose());
+				btnNotOk.addActionListener(event -> dispose());
 				panel.add(btnNotOk);
 			}
 		}

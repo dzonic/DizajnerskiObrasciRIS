@@ -23,29 +23,29 @@ public class Circle extends Shape {
 		setSelected(selected);
 	}
 	@Override
-	public void draw(Graphics g) {
-		g.setColor(getEdgeColor());
-		g.drawOval(this.getCenter().getxCoordinate() - getRadius(), this.getCenter().getyCoordinate() - this.getRadius(), getRadius()*2, this.getRadius()*2);
-		g.setColor(getInnerColor());
-		g.fillOval(this.getCenter().getxCoordinate()-this.getRadius(), this.getCenter().getyCoordinate()-this.getRadius(), this.getRadius()*2, this.getRadius()*2);
+	public void draw(Graphics graphics) {
+		graphics.setColor(getEdgeColor());
+		graphics.drawOval(this.getCenter().getxCoordinate() - getRadius(), this.getCenter().getyCoordinate() - this.getRadius(), getRadius()*2, this.getRadius()*2);
+		graphics.setColor(getInnerColor());
+		graphics.fillOval(this.getCenter().getxCoordinate()-this.getRadius(), this.getCenter().getyCoordinate()-this.getRadius(), this.getRadius()*2, this.getRadius()*2);
 	
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3, 6, 6);
-			g.drawRect(getCenter().getxCoordinate() - 3 - getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
-			g.drawRect(getCenter().getxCoordinate() - 3 + getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
-			g.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 + getRadius() , 6, 6);
-			g.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 - getRadius(), 6, 6);
+			graphics.setColor(Color.BLUE);
+			graphics.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3, 6, 6);
+			graphics.drawRect(getCenter().getxCoordinate() - 3 - getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
+			graphics.drawRect(getCenter().getxCoordinate() - 3 + getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
+			graphics.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 + getRadius() , 6, 6);
+			graphics.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 - getRadius(), 6, 6);
 		}
 	}
 	@Override
-	public void moveBy(int byX, int byY) {
-		center.moveBy(byX, byY);
+	public void moveBy(int byXCoordinate, int byYCoordinate) {
+		center.moveBy(byXCoordinate, byYCoordinate);
 	}
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Circle) {
-			return (this.radius - ((Circle) o).radius);
+	public int compareTo(Object object) {
+		if (object instanceof Circle) {
+			return (this.radius - ((Circle) object).radius);
 		}
 		return 0;
 	}

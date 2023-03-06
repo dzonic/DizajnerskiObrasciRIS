@@ -17,9 +17,9 @@ public class Point extends Shape {
 		setyCoordinate(yCoordinate);
 		setEdgeColor(edgeColor);
 	}
-	public Point(Point p, Color edgeColor) {
-		this.xCoordinate = p.getxCoordinate();
-		this.yCoordinate = p.getyCoordinate();
+	public Point(Point point, Color edgeColor) {
+		this.xCoordinate = point.getxCoordinate();
+		this.yCoordinate = point.getyCoordinate();
 		setEdgeColor(edgeColor);
 	}
 	public Point(int xCoordinate, int yCoordinate, boolean selected) {
@@ -27,14 +27,14 @@ public class Point extends Shape {
 		setSelected(selected);
 	}
 	@Override
-	public void draw(Graphics g) {
-		g.setColor(getEdgeColor());
-		g.drawLine(this.xCoordinate -2, yCoordinate, this.xCoordinate +2, yCoordinate);
-		g.drawLine(xCoordinate, this.yCoordinate -2, xCoordinate, this.yCoordinate +2);
+	public void draw(Graphics graphics) {
+		graphics.setColor(getEdgeColor());
+		graphics.drawLine(this.xCoordinate -2, yCoordinate, this.xCoordinate +2, yCoordinate);
+		graphics.drawLine(xCoordinate, this.yCoordinate -2, xCoordinate, this.yCoordinate +2);
 		
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.xCoordinate -3, this.getyCoordinate()-3, 6, 6);
+			graphics.setColor(Color.BLUE);
+			graphics.drawRect(this.xCoordinate -3, this.getyCoordinate()-3, 6, 6);
 		}
 	}
 	@Override
@@ -43,19 +43,19 @@ public class Point extends Shape {
 		this.yCoordinate += byY;
 	}
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Point) {
+	public int compareTo(Object object) {
+		if (object instanceof Point) {
 			Point start = new Point(0, 0);
-			return (int) (this.distance(start.getxCoordinate(), start.getyCoordinate()) - ((Point) o).distance(start.getxCoordinate(), start.getyCoordinate()));
+			return (int) (this.distance(start.getxCoordinate(), start.getyCoordinate()) - ((Point) object).distance(start.getxCoordinate(), start.getyCoordinate()));
 		}
 		return 0;
 	}
 	public boolean contains(int xCoordinate, int yCoordinate) {
 		return this.distance(xCoordinate, yCoordinate) <= 3;
 	}
-	public boolean equals(Object obj) {
-		if (obj instanceof Point) {
-			Point p = (Point) obj;
+	public boolean equals(Object object) {
+		if (object instanceof Point) {
+			Point p = (Point) object;
 			if (this.xCoordinate == p.getxCoordinate() &&
 					this.yCoordinate == p.getyCoordinate()) {
 				return true;
@@ -66,11 +66,11 @@ public class Point extends Shape {
 			return false;
 		}
 	}
-	public double distance(int x2, int y2) {
-		double dx = this.xCoordinate - x2;
-		double dy = this.yCoordinate - y2;
-		double d = Math.sqrt(dx*dx + dy*dy);
-		return d;
+	public double distance(int xCoordinate, int yCoordinate) {
+		double dstanceXSquare = this.xCoordinate - xCoordinate;
+		double distanceYSquare = this.yCoordinate - yCoordinate;
+		double distanceSquare = Math.sqrt(dstanceXSquare*dstanceXSquare + distanceYSquare*distanceYSquare);
+		return distanceSquare;
 	}
 	public int getxCoordinate() {
 		return this.xCoordinate;

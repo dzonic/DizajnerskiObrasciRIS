@@ -18,28 +18,28 @@ public class Line extends Shape {
 		setEdgeColor(edgeColor);
 	}
 	@Override
-	public void draw(Graphics g) {
-		g.setColor(getEdgeColor());
-		g.drawLine(this.getStartPoint().getxCoordinate(), this.getStartPoint().getyCoordinate(), this.endPoint.getxCoordinate(), this.getEndPoint().getyCoordinate());
+	public void draw(Graphics graphics) {
+		graphics.setColor(getEdgeColor());
+		graphics.drawLine(this.getStartPoint().getxCoordinate(), this.getStartPoint().getyCoordinate(), this.endPoint.getxCoordinate(), this.getEndPoint().getyCoordinate());
 		
 		if (isSelected()) {
-			g.setColor(Color.BLUE);
-			g.drawRect(this.getStartPoint().getxCoordinate() - 3, this.getStartPoint().getyCoordinate() - 3, 6, 6);
-			g.drawRect(this.getEndPoint().getxCoordinate() - 3, this.getEndPoint().getyCoordinate() - 3, 6, 6);
-			g.drawRect(this.middleOfLine().getxCoordinate() - 3, this.middleOfLine().getyCoordinate() - 3, 6, 6);
+			graphics.setColor(Color.BLUE);
+			graphics.drawRect(this.getStartPoint().getxCoordinate() - 3, this.getStartPoint().getyCoordinate() - 3, 6, 6);
+			graphics.drawRect(this.getEndPoint().getxCoordinate() - 3, this.getEndPoint().getyCoordinate() - 3, 6, 6);
+			graphics.drawRect(this.middleOfLine().getxCoordinate() - 3, this.middleOfLine().getyCoordinate() - 3, 6, 6);
 		}
 	}
 	@Override
-	public int compareTo(Object o) {
-		if (o instanceof Line) {
-			return (int) (this.length() - ((Line) o).length());
+	public int compareTo(Object object) {
+		if (object instanceof Line) {
+			return (int) (this.length() - ((Line) object).length());
 		}
 		return 0;
 	}
 	@Override
-	public void moveBy(int byX, int byY) {
-		startPoint.moveBy(byX, byY);
-		endPoint.moveBy(byX, byY);
+	public void moveBy(int xCoordinate, int yCoordinate) {
+		startPoint.moveBy(xCoordinate, yCoordinate);
+		endPoint.moveBy(xCoordinate, yCoordinate);
 	}
 	public Point middleOfLine() {
 		int middleByX = (this.getStartPoint().getxCoordinate() + this.getEndPoint().getxCoordinate()) / 2;
@@ -47,16 +47,16 @@ public class Line extends Shape {
 		Point p = new Point(middleByX, middleByY);
 		return p;
 	}
-	public boolean contains(int x, int y) {
-		if ((startPoint.distance(x, y) + endPoint.distance(x, y)) - length() <= 0.05) {
+	public boolean contains(int xCoordinate, int yCoordinate) {
+		if ((startPoint.distance(xCoordinate, yCoordinate) + endPoint.distance(xCoordinate, yCoordinate)) - length() <= 0.05) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public boolean equals(Object obj) {
-		if (obj instanceof Line) {
-			Line l = (Line) obj;
+	public boolean equals(Object object) {
+		if (object instanceof Line) {
+			Line l = (Line) object;
 			if (this.startPoint.equals(l.getStartPoint()) && 
 					this.endPoint.equals(l.getEndPoint())) {
 				return true;
@@ -84,7 +84,6 @@ public class Line extends Shape {
 	}
 	public String toString() {
 		return "Line(X1 " + startPoint.getxCoordinate() + "|Y1 " + startPoint.getyCoordinate() + "|X2 " + endPoint.getxCoordinate() + "|Y2 " + endPoint.getyCoordinate() + ")|EdgeColor(" + getEdgeColor().getRGB()+")";
-
 	}
 	public static Line parse(String shape) {
 		shape = shape.replace("Line(X1 ", "").replace(")", "");

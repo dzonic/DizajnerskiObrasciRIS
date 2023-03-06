@@ -19,52 +19,52 @@ public class Donut extends Circle {
 		setEdgeColor(edgeColor);
 		setInnerColor(innerColor);
 	}
-	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
+	public void draw(Graphics graphics) {
+		Graphics2D graphics2D = (Graphics2D) graphics;
 		Path2D path = new Path2D.Double(Path2D.WIND_EVEN_ODD);
 		
 		path.append(new Ellipse2D.Double(getCenter().getxCoordinate() - getRadius(), this.getCenter().getyCoordinate() - getRadius(), getRadius()*2, getRadius()*2), false);
 		path.append(new Ellipse2D.Double(getCenter().getxCoordinate() - getInnerRadius(), this.getCenter().getyCoordinate() - getInnerRadius(), getInnerRadius()*2, getInnerRadius()*2), false);
-		
-		g2d.setColor(getInnerColor());
-		g2d.fill(path);
-		
-		g2d.setColor(getEdgeColor());
-		g2d.drawOval(getCenter().getxCoordinate() - getRadius(), this.getCenter().getyCoordinate() - getRadius(), getRadius()*2, getRadius()*2);
-		g2d.drawOval(getCenter().getxCoordinate() - getInnerRadius(), this.getCenter().getyCoordinate() - getInnerRadius(), getInnerRadius()*2, getInnerRadius()*2);
+
+		graphics2D.setColor(getInnerColor());
+		graphics2D.fill(path);
+
+		graphics2D.setColor(getEdgeColor());
+		graphics2D.drawOval(getCenter().getxCoordinate() - getRadius(), this.getCenter().getyCoordinate() - getRadius(), getRadius()*2, getRadius()*2);
+		graphics2D.drawOval(getCenter().getxCoordinate() - getInnerRadius(), this.getCenter().getyCoordinate() - getInnerRadius(), getInnerRadius()*2, getInnerRadius()*2);
 		
 		if (isSelected()) {
-			g2d.setColor(Color.BLUE);
-			g2d.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3, 6, 6);
-			g2d.drawRect(getCenter().getxCoordinate() - 3 - getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
-			g2d.drawRect(getCenter().getxCoordinate() - 3 + getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
-			g2d.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 + getRadius() , 6, 6);
-			g2d.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 - getRadius(), 6, 6);
+			graphics2D.setColor(Color.BLUE);
+			graphics2D.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3, 6, 6);
+			graphics2D.drawRect(getCenter().getxCoordinate() - 3 - getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
+			graphics2D.drawRect(getCenter().getxCoordinate() - 3 + getRadius(), getCenter().getyCoordinate() - 3, 6, 6);
+			graphics2D.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 + getRadius() , 6, 6);
+			graphics2D.drawRect(getCenter().getxCoordinate() - 3, getCenter().getyCoordinate() - 3 - getRadius(), 6, 6);
 		}
 	}
-	public int compareTo(Object o) {
-		if (o instanceof Donut) {
-			return (int) (this.area() - ((Donut) o).area());
+	public int compareTo(Object object) {
+		if (object instanceof Donut) {
+			return (int) (this.area() - ((Donut) object).area());
 		}
 		return 0;
 	}
-	public boolean contains(int x, int y) {
-		double dFromCenter = this.getCenter().distance(x, y);
-		return super.contains(x, y) && dFromCenter > innerRadius;
+	public boolean contains(int xCoordinate, int yCoordinate) {
+		double dFromCenter = this.getCenter().distance(xCoordinate, yCoordinate);
+		return super.contains(xCoordinate, yCoordinate) && dFromCenter > innerRadius;
 	}
-	public boolean contains(Point p) {
-		double dFromCenter = this.getCenter().distance(p.getxCoordinate(), p.getyCoordinate());
-		return super.contains(p.getxCoordinate(), p.getyCoordinate()) && dFromCenter > innerRadius;
+	public boolean contains(Point point) {
+		double dFromCenter = this.getCenter().distance(point.getxCoordinate(), point.getyCoordinate());
+		return super.contains(point.getxCoordinate(), point.getyCoordinate()) && dFromCenter > innerRadius;
 	}
 	public double area() {
 		return super.area() - innerRadius * innerRadius * Math.PI;
 	}
-	public boolean equals(Object obj) {
-		if (obj instanceof Donut) {
-			Donut d = (Donut) obj;
-			if (this.getCenter().equals(d.getCenter()) &&
-					this.getRadius() == d.getRadius() &&
-					innerRadius == d.getInnerRadius()) {
+	public boolean equals(Object object) {
+		if (object instanceof Donut) {
+			Donut donut = (Donut) object;
+			if (this.getCenter().equals(donut.getCenter()) &&
+					this.getRadius() == donut.getRadius() &&
+					innerRadius == donut.getInnerRadius()) {
 				return true;
 			} else {
 				return false;

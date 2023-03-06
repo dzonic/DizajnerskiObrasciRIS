@@ -39,52 +39,52 @@ public class DialogRectangle extends JDialog {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		{
-			JPanel panel = new JPanel();
-			getContentPane().add(panel, BorderLayout.CENTER);
-			panel.setLayout(new GridLayout(6, 2, 0, 0));
+			JPanel panelRectangle = new JPanel();
+			getContentPane().add(panelRectangle, BorderLayout.CENTER);
+			panelRectangle.setLayout(new GridLayout(6, 2, 0, 0));
 			{
 				JLabel lblXkoordinata = new JLabel("X koordinata", SwingConstants.CENTER);
-				panel.add(lblXkoordinata);
+				panelRectangle.add(lblXkoordinata);
 			}
 			{
 				txtX = new JTextField();
-				panel.add(txtX);
+				panelRectangle.add(txtX);
 				txtX.setColumns(10);
 			}
 			{
 				JLabel lblYkoordinata = new JLabel("Y koordinata");
 				lblYkoordinata.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(lblYkoordinata);
+				panelRectangle.add(lblYkoordinata);
 			}
 			{
 				txtY = new JTextField();
-				panel.add(txtY);
+				panelRectangle.add(txtY);
 				txtY.setColumns(10);
 			}
 			{
 				JLabel lblVisina = new JLabel("Visina");
 				lblVisina.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(lblVisina);
+				panelRectangle.add(lblVisina);
 			}
 			{
 				txtHeight = new JTextField();
-				panel.add(txtHeight);
+				panelRectangle.add(txtHeight);
 				txtHeight.setColumns(10);
 			}
 			{
 				JLabel lblSirina = new JLabel("Sirina");
 				lblSirina.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(lblSirina);
+				panelRectangle.add(lblSirina);
 			}
 			{
 				txtWidth = new JTextField();
-				panel.add(txtWidth);
+				panelRectangle.add(txtWidth);
 				txtWidth.setColumns(10);
 			}
 			{
 				JLabel lblEdgeColor = new JLabel("Boja ivice");
 				lblEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(lblEdgeColor);
+				panelRectangle.add(lblEdgeColor);
 			}
 			{
 				btnEdgeColor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -93,12 +93,12 @@ public class DialogRectangle extends JDialog {
 					if (edgeColor == null) edgeColor = Color.BLACK;
 					btnEdgeColor.setBackground(edgeColor);
 				});
-				panel.add(btnEdgeColor);
+				panelRectangle.add(btnEdgeColor);
 			}
 			{
 				JLabel lblInnerColor = new JLabel("Boja unutrasnjosti");
 				lblInnerColor.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(lblInnerColor);
+				panelRectangle.add(lblInnerColor);
 			}
 			{
 				btnInnerColor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,7 +107,7 @@ public class DialogRectangle extends JDialog {
 					if (innerColor == null) innerColor = Color.WHITE;
 					btnInnerColor.setBackground(innerColor);
 				});
-				panel.add(btnInnerColor);
+				panelRectangle.add(btnInnerColor);
 			}
 		}
 		{

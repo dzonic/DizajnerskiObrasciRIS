@@ -26,14 +26,14 @@ public class HexagonAdapter extends Shape {
 		this.hexagon.setAreaColor(innerColor);
 	}
 	@Override
-	public void moveBy(int byX, int byY) {
-		hexagon.setX(byX);
-		hexagon.setY(byY);
+	public void moveBy(int byXCoordinate, int byYCoordinate) {
+		hexagon.setX(byXCoordinate);
+		hexagon.setY(byYCoordinate);
 	}
 	@Override
-	public int compareTo(Object o) {
-		if(o instanceof HexagonAdapter)
-			return hexagon.getR() - ((HexagonAdapter)o).hexagon.getR();
+	public int compareTo(Object object) {
+		if(object instanceof HexagonAdapter)
+			return hexagon.getR() - ((HexagonAdapter)object).hexagon.getR();
 		return 0;
 	}
 	@Override
@@ -41,8 +41,8 @@ public class HexagonAdapter extends Shape {
 		return hexagon.doesContain(x, y);
 	}
 	@Override
-	public void draw(Graphics g) {
-		this.hexagon.paint(g);
+	public void draw(Graphics graphics) {
+		this.hexagon.paint(graphics);
 	}
 	public boolean isSelected() {
 		return this.hexagon.isSelected();
@@ -89,9 +89,9 @@ public class HexagonAdapter extends Shape {
 		
 		return hexagon;
 	}
-	public boolean equals(Object obj) {
-		if (obj instanceof HexagonAdapter) {
-			HexagonAdapter hex = (HexagonAdapter) obj;
+	public boolean equals(Object object) {
+		if (object instanceof HexagonAdapter) {
+			HexagonAdapter hex = (HexagonAdapter) object;
 			
 			if (hexagon.getX() == hex.hexagon.getX() && hexagon.getY() == hex.hexagon.getY() && hexagon.getR() == hex.hexagon.getR()) {
 				return true;
