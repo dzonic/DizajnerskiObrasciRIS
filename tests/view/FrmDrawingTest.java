@@ -28,6 +28,5 @@ class FrmDrawingTest {
     @Test
     void testMain() {
         FrmDrawing.main(new String[]{"args"});
-
     }
 }

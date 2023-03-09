@@ -91,9 +91,9 @@ public class HexagonAdapter extends Shape {
 	}
 	public boolean equals(Object object) {
 		if (object instanceof HexagonAdapter) {
-			HexagonAdapter hex = (HexagonAdapter) object;
+			HexagonAdapter hexagonAdapter = (HexagonAdapter) object;
 			
-			if (hexagon.getX() == hex.hexagon.getX() && hexagon.getY() == hex.hexagon.getY() && hexagon.getR() == hex.hexagon.getR()) {
+			if (hexagon.getX() == hexagonAdapter.hexagon.getX() && hexagon.getY() == hexagonAdapter.hexagon.getY() && hexagon.getR() == hexagonAdapter.hexagon.getR()) {
 				return true;
 			} else {
 				return false;

@@ -49,16 +49,16 @@ public class Circle extends Shape {
 		}
 		return 0;
 	}
-	public boolean contains(int x, int y) {
-		return this.getCenter().distance(x, y) <= radius;
+	public boolean contains(int xCoordinate, int yCoordinate) {
+		return this.getCenter().distance(xCoordinate, yCoordinate) <= radius;
 	}
-	public boolean contains(Point p) {
-		return p.distance(getCenter().getxCoordinate(), getCenter().getyCoordinate()) <= radius;
+	public boolean contains(Point point) {
+		return point.distance(getCenter().getxCoordinate(), getCenter().getyCoordinate()) <= radius;
 	}
-	public boolean equals(Object obj) {
-		if (obj instanceof Circle) {
-			Circle c = (Circle) obj;
-			if (this.center.equals(c.getCenter()) && this.radius == c.getRadius()) {
+	public boolean equals(Object object) {
+		if (object instanceof Circle) {
+			Circle circle = (Circle) object;
+			if (this.center.equals(circle.getCenter()) && this.radius == circle.getRadius()) {
 				return true;
 			} else {
 				return false;

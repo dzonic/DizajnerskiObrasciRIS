@@ -19,9 +19,6 @@ public class DrawingModel {
 	public int getIndex(Shape shape) {
 		return listOfShapes.indexOf(shape);
 	}
-	public void setShape(int index, Shape shape) {
-		listOfShapes.set(index, shape);
-	}
 	public void addShapeAtIndex(Shape shape, int ind) {
 		listOfShapes.add(ind, shape);
 	}

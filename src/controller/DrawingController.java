@@ -258,10 +258,13 @@ public class DrawingController implements Subject {
 	public void operationDelete() {
 		if (model.isEmpty()) return;
 
-		if (JOptionPane.showConfirmDialog(null, "Da li zaista zelite da obrisete selektovane oblike?", "Potvrda", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+			showMessageForDeleteOptionDialog();
 			CmdDeleteShapes cmdDeleteShapes = new CmdDeleteShapes(model.getSelectedShapes(), model);
 			execute(cmdDeleteShapes);
-		} 
+	}
+	public void showMessageForDeleteOptionDialog(){
+		if(JOptionPane.showConfirmDialog(null, "Da li zaista zelite da obrisete selektovane oblike?", "Potvrda", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+				== 0);
 	}
 	public void saveFile() {
 		if(!model.getShapes().isEmpty()) frame.getSaveFileChooser().setFileFilter(frame.getDrawFilter());
@@ -331,7 +334,6 @@ public class DrawingController implements Subject {
 		frame.getView().repaint();
 		notifyObservers();
 	}
-
 	public void undoCommand() {
 		if(!executedCmd.isEmpty()) {
 			Command undoCommand= executedCmd.pop();

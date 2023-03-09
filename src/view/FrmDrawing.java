@@ -55,8 +55,8 @@ public class FrmDrawing extends JFrame implements Observer {
 	private JToggleButton btnShapeHexagon = new JToggleButton("Sestougao");
 	private JButton btnUndo = new JButton("Ponisti");
 	private JButton btnRedo = new JButton("Ponovi");
-	private JButton btnColorEdge = new JButton(" ");
-	private JButton btnColorInner = new JButton(" ");
+	private JButton btnColorEdge;
+	private JButton btnColorInner;
 	private JButton btnToFront = new JButton("Ispred");
 	private JButton btnBringToFront = new JButton("Ispred svih");
 	private JButton btnToBack = new JButton("Iza");
@@ -131,13 +131,13 @@ public class FrmDrawing extends JFrame implements Observer {
 		});
 		contentPane.add(view, BorderLayout.CENTER);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.WEST);
-		panel_1.setLayout(new GridLayout(4, 0, 0, 0));
+		JPanel panelBasic = new JPanel();
+		contentPane.add(panelBasic, BorderLayout.WEST);
+		panelBasic.setLayout(new GridLayout(4, 0, 0, 0));
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Operacije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.add(panel_2);
+		JPanel panelOperations = new JPanel();
+		panelOperations.setBorder(new TitledBorder(null, "Operacije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelBasic.add(panelOperations);
 		
 		btnOperationDrawing.setSelected(true);
 		
@@ -149,9 +149,9 @@ public class FrmDrawing extends JFrame implements Observer {
 		btnOperationEditOrDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationEditOrDelete);
 
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Akcije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.add(panel_3);
+		JPanel panelAllActions = new JPanel();
+		panelAllActions.setBorder(new TitledBorder(null, "Akcije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelBasic.add(panelAllActions);
 
 		btnActionEdit.addActionListener(e -> controller.operationEdit());
 		btnActionEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -166,80 +166,80 @@ public class FrmDrawing extends JFrame implements Observer {
 		btnToBack.addActionListener(e -> controller.toBack());
 		btnBringToBack.addActionListener(e -> controller.bringToBack());
 		
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
+		GroupLayout gl_panelAllActions = new GroupLayout(panelAllActions);
+		gl_panelAllActions.setHorizontalGroup(
+				gl_panelAllActions.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelAllActions.createSequentialGroup()
 					.addGap(48)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_3.createSequentialGroup()
+					.addGroup(gl_panelAllActions.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelAllActions.createSequentialGroup()
 							.addComponent(btnActionEdit)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnActionDelete))
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panelAllActions.createSequentialGroup()
+							.addGroup(gl_panelAllActions.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelAllActions.createParallelGroup(Alignment.TRAILING)
 									.addComponent(btnToFront)
 									.addComponent(btnUndo))
 								.addComponent(btnToBack))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panelAllActions.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnBringToFront)
 								.addComponent(btnBringToBack)
 								.addComponent(btnRedo))))
 					.addGap(32))
 		);
-		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
+		gl_panelAllActions.setVerticalGroup(
+				gl_panelAllActions.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelAllActions.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panelAllActions.createParallelGroup(Alignment.TRAILING)
 						.addComponent(btnActionEdit)
 						.addComponent(btnActionDelete))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelAllActions.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnUndo)
 						.addComponent(btnRedo))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panelAllActions.createParallelGroup(Alignment.TRAILING)
 						.addComponent(btnToFront)
 						.addComponent(btnBringToFront))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelAllActions.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnToBack)
 						.addComponent(btnBringToBack))
 					.addContainerGap(25, Short.MAX_VALUE))
 		);
-		panel_3.setLayout(gl_panel_3);
+		panelAllActions.setLayout(gl_panelAllActions);
 
-		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new TitledBorder(null, "Oblici", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.add(panel_4);
-		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.Y_AXIS));
+		JPanel panelAllShapes = new JPanel();
+		panelAllShapes.setBorder(new TitledBorder(null, "Oblici", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelBasic.add(panelAllShapes);
+		panelAllShapes.setLayout(new BoxLayout(panelAllShapes, BoxLayout.Y_AXIS));
 		
 		btnShapePoint.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsShapes.add(btnShapePoint);
-		panel_4.add(btnShapePoint);
+		panelAllShapes.add(btnShapePoint);
 		
 		btnShapeLine.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsShapes.add(btnShapeLine);
-		panel_4.add(btnShapeLine);
+		panelAllShapes.add(btnShapeLine);
 		
 		btnShapeRectangle.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsShapes.add(btnShapeRectangle);
-		panel_4.add(btnShapeRectangle);
+		panelAllShapes.add(btnShapeRectangle);
 		
 		btnShapeCircle.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsShapes.add(btnShapeCircle);
-		panel_4.add(btnShapeCircle);
+		panelAllShapes.add(btnShapeCircle);
 		
 		btnShapeDonut.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsShapes.add(btnShapeDonut);
-		panel_4.add(btnShapeDonut);
+		panelAllShapes.add(btnShapeDonut);
 		
 		btnShapeHexagon.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsShapes.add(btnShapeHexagon);
-		panel_4.add(btnShapeHexagon);
+		panelAllShapes.add(btnShapeHexagon);
 
 		btnOpenFile.addActionListener(arg0 -> {
 			openFileChooser = new JFileChooser();
@@ -271,46 +271,46 @@ public class FrmDrawing extends JFrame implements Observer {
 		});
 		btnReadCommand.addActionListener(e -> controller.readCommand());
 		
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
+		GroupLayout gl_panelOperations = new GroupLayout(panelOperations);
+		gl_panelOperations.setHorizontalGroup(
+				gl_panelOperations.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelOperations.createSequentialGroup()
 					.addGap(37)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
+					.addGroup(gl_panelOperations.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelOperations.createSequentialGroup()
 							.addGap(10)
 							.addComponent(btnReadCommand))
-						.addGroup(gl_panel_2.createSequentialGroup()
+						.addGroup(gl_panelOperations.createSequentialGroup()
 							.addComponent(btnOpenFile)
 							.addGap(18)
 							.addComponent(btnSaveFile))
-						.addGroup(gl_panel_2.createSequentialGroup()
+						.addGroup(gl_panelOperations.createSequentialGroup()
 							.addComponent(btnOperationDrawing)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnOperationEditOrDelete)))
 					.addContainerGap(48, Short.MAX_VALUE))
 		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
+		gl_panelOperations.setVerticalGroup(
+				gl_panelOperations.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelOperations.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelOperations.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnOperationDrawing)
 						.addComponent(btnOperationEditOrDelete))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelOperations.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnOpenFile)
 						.addComponent(btnSaveFile))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnReadCommand)
 					.addGap(37))
 		);
-		panel_2.setLayout(gl_panel_2);
+		panelOperations.setLayout(gl_panelOperations);
 		btnShapePoint.setSelected(true);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(new TitledBorder(null, "Boje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.add(panel_5);
+		JPanel panelColorSettings = new JPanel();
+		panelColorSettings.setBorder(new TitledBorder(null, "Boje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelBasic.add(panelColorSettings);
 	
 		btnColorEdge = new JButton("");
 		btnColorEdge.addActionListener(edgeColorChooser());
@@ -323,37 +323,37 @@ public class FrmDrawing extends JFrame implements Observer {
 		JLabel lblEdgeColor = new JLabel("Boja ivice");
 		
 		JLabel lblInnerColor = new JLabel("Boja unutrasnosti");
-		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
+		GroupLayout gl_panelColorSettings = new GroupLayout(panelColorSettings);
+		gl_panelColorSettings.setHorizontalGroup(
+				gl_panelColorSettings.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelColorSettings.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelColorSettings.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnColorEdge, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblEdgeColor))
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createSequentialGroup()
+					.addGroup(gl_panelColorSettings.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelColorSettings.createSequentialGroup()
 							.addGap(18)
 							.addComponent(lblInnerColor))
-						.addGroup(gl_panel_5.createSequentialGroup()
+						.addGroup(gl_panelColorSettings.createSequentialGroup()
 							.addGap(35)
 							.addComponent(btnColorInner, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(56, Short.MAX_VALUE))
 		);
-		gl_panel_5.setVerticalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
+		gl_panelColorSettings.setVerticalGroup(
+				gl_panelColorSettings.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelColorSettings.createSequentialGroup()
 					.addGap(23)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelColorSettings.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEdgeColor)
 						.addComponent(lblInnerColor))
 					.addGap(18)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_panelColorSettings.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnColorInner, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnColorEdge, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
 					.addContainerGap(131, Short.MAX_VALUE))
 		);
-		panel_5.setLayout(gl_panel_5);
+		panelColorSettings.setLayout(gl_panelColorSettings);
 		
 		contentPane.add(pnlLog, BorderLayout.SOUTH);
 		

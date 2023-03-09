@@ -54,8 +54,8 @@ public class LogFile implements Strategy {
 		try {
 			writer = new BufferedWriter(new FileWriter(file + ".log"));
 			DefaultListModel < String > defaultListModel = frame.getDefaultListLogModel();
-			for (int i = 0; i < defaultListModel.size(); i++) {
-				writer.write(defaultListModel.getElementAt(i));
+			for (int index = 0; index < defaultListModel.size(); index++) {
+				writer.write(defaultListModel.getElementAt(index));
 				writer.newLine();
 			}
 			writer.close();
