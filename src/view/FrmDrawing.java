@@ -256,7 +256,7 @@ public class FrmDrawing extends JFrame implements Observer {
 			controller.openFile();
 		});
 
-		btnSaveFile.addActionListener(e -> {
+		btnSaveFile.addActionListener(actionEvent -> {
 			saveFileChooser = new JFileChooser();
 			saveFileChooser.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
 			saveFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -269,7 +269,7 @@ public class FrmDrawing extends JFrame implements Observer {
 
 			controller.saveFile();
 		});
-		btnReadCommand.addActionListener(e -> controller.readCommand());
+		btnReadCommand.addActionListener(actionEvent -> controller.readCommand());
 		
 		GroupLayout gl_panelOperations = new GroupLayout(panelOperations);
 		gl_panelOperations.setHorizontalGroup(
@@ -368,7 +368,7 @@ public class FrmDrawing extends JFrame implements Observer {
 		pnlLog.add(scrollPane);
 	}
 	private ActionListener edgeColorChooser() {
-		return e -> {
+		return actionEvent -> {
 			Color edgeColor = JColorChooser.showDialog(null, "Izaberite boju ivice", controller.getEdgeColor());
 			if (edgeColor != null) {
 				controller.setEdgeColor(edgeColor);
@@ -377,7 +377,7 @@ public class FrmDrawing extends JFrame implements Observer {
 		};
 	}
 	private ActionListener innerColorChooser() {
-	return e -> {
+	return actionEvent -> {
 		Color innerColor = JColorChooser.showDialog(null, "Izaberite boju unutrasnosti", controller.getInnerColor());
 		if (innerColor != null) {
 			controller.setInnerColor(innerColor);
