@@ -7,52 +7,40 @@ import java.awt.Color;
 import org.junit.jupiter.api.Test;
 
 class DialogCircleTest {
-
+    DialogCircle dialogCircle = new DialogCircle();
     @Test
     void testConstruction() {
-        DialogCircle dialog = new DialogCircle();
-        assertNotNull(dialog);
+        assertNotNull(dialogCircle);
     }
-
     @Test
     void testEdgeColor() {
-        DialogCircle dialog = new DialogCircle();
         Color expected = Color.RED;
-        dialog.btnEdgeColor.setBackground(Color.RED);
-        dialog.edgeColor = Color.RED;
-        Color actual = dialog.getEdgeColor();
+        dialogCircle.btnEdgeColor.setBackground(Color.RED);
+        dialogCircle.edgeColor = Color.RED;
+        Color actual = dialogCircle.getEdgeColor();
         assertEquals(expected,actual);
     }
-
     @Test
     void testInnerColor() {
-        DialogCircle dialog = new DialogCircle();
         Color expected = Color.RED;
-        dialog.btnInnerColor.setBackground(Color.RED);
-        dialog.innerColor = Color.RED;
-        Color actual = dialog.getInnerColor();
+        dialogCircle.btnInnerColor.setBackground(Color.RED);
+        dialogCircle.innerColor = Color.RED;
+        Color actual = dialogCircle.getInnerColor();
         assertEquals(expected,actual);
     }
-
     @Test
     void testTxtX() {
-        DialogCircle dialog = new DialogCircle();
-        dialog.txtX.setText("10");
-        assertEquals("10", dialog.txtX.getText());
+        dialogCircle.txtX.setText("10");
+        assertEquals("10", dialogCircle.txtX.getText());
     }
-
     @Test
     void testTxtY() {
-        DialogCircle dialog = new DialogCircle();
-        dialog.txtY.setText("20");
-        assertEquals("20", dialog.txtY.getText());
+        dialogCircle.txtY.setText("20");
+        assertEquals("20", dialogCircle.txtY.getText());
     }
-
     @Test
     void testTxtRadius() {
-        DialogCircle dialog = new DialogCircle();
-        dialog.txtRadius.setText("15");
-        assertEquals("15", dialog.txtRadius.getText());
+        dialogCircle.txtRadius.setText("15");
+        assertEquals("15", dialogCircle.txtRadius.getText());
     }
-
 }

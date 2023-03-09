@@ -18,7 +18,6 @@ class CmdUpdateHexagonTest {
     private HexagonAdapter newState;
     private HexagonAdapter originalState;
     private CmdUpdateHexagon cmdUpdateHexagon;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -27,13 +26,11 @@ class CmdUpdateHexagonTest {
         originalState = new HexagonAdapter(new Hexagon(3, 2, 3), Color.WHITE, Color.BLACK);
         cmdUpdateHexagon = new CmdUpdateHexagon(oldState, newState);
     }
-
     @Test
     public void testExecute() {
         cmdUpdateHexagon.execute();
         assertEquals(newState, oldState);
     }
-
     @Test
     public void testUnexecute() {
         cmdUpdateHexagon.unexecute();

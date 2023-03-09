@@ -14,7 +14,6 @@ class CmdUpdatePointTest {
     private Point newState;
     private Point originalState;
     private CmdUpdatePoint cmdModifyPoint;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -23,13 +22,11 @@ class CmdUpdatePointTest {
         originalState = new Point(1, 3, Color.BLACK);
         cmdModifyPoint = new CmdUpdatePoint(oldState, newState);
     }
-
     @Test
     public void testExecute() {
         cmdModifyPoint.execute();
         assertEquals(newState, oldState);
     }
-
     @Test
     public void testUnexecute() {
         cmdModifyPoint.unexecute();

@@ -18,7 +18,6 @@ class CmdUpdateDonutTest {
     private Donut newState;
     private Donut originalState;
     private CmdUpdateDonut cmdModifyDonut;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -27,18 +26,14 @@ class CmdUpdateDonutTest {
         originalState = new Donut(new Point(1, 1), 3, 2,  Color.BLACK, Color.WHITE);
         cmdModifyDonut = new CmdUpdateDonut(oldState, newState);
     }
-
     @Test
     public void testExecute() {
         cmdModifyDonut.execute();
         assertEquals(newState, oldState);
     }
-
     @Test
     public void testUnexecute() {
         cmdModifyDonut.unexecute();
         assertEquals(originalState, oldState);
     }
-
-
 }

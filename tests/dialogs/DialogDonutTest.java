@@ -7,59 +7,45 @@ import java.awt.Color;
 import org.junit.jupiter.api.Test;
 
 class DialogDonutTest {
-
+    DialogDonut dialogDonut = new DialogDonut();
     @Test
     void testConstruction() {
-        DialogDonut dialog = new DialogDonut();
-        assertNotNull(dialog);
+        assertNotNull(dialogDonut);
     }
-
     @Test
     void testEdgeColor() {
-        DialogDonut dialog = new DialogDonut();
         Color expected = Color.RED;
-        dialog.btnEdgeColor.setBackground(Color.RED);
-        dialog.edgeColor = Color.RED;
-        Color actual = dialog.getEdgeColor();
+        dialogDonut.btnEdgeColor.setBackground(Color.RED);
+        dialogDonut.edgeColor = Color.RED;
+        Color actual = dialogDonut.getEdgeColor();
         assertEquals(expected,actual);
     }
-
     @Test
     void testInnerColor() {
-        DialogDonut dialog = new DialogDonut();
         Color expected = Color.RED;
-        dialog.btnInnerColor.setBackground(Color.RED);
-        dialog.innerColor = Color.RED;
-        Color actual = dialog.getInnerColor();
+        dialogDonut.btnInnerColor.setBackground(Color.RED);
+        dialogDonut.innerColor = Color.RED;
+        Color actual = dialogDonut.getInnerColor();
         assertEquals(expected,actual);
     }
-
     @Test
     void testTxtX() {
-        DialogDonut dialog = new DialogDonut();
-        dialog.txtX.setText("10");
-        assertEquals("10", dialog.txtX.getText());
+        dialogDonut.txtX.setText("10");
+        assertEquals("10", dialogDonut.txtX.getText());
     }
-
     @Test
     void testTxtY() {
-        DialogDonut dialog = new DialogDonut();
-        dialog.txtY.setText("20");
-        assertEquals("20", dialog.txtY.getText());
+        dialogDonut.txtY.setText("20");
+        assertEquals("20", dialogDonut.txtY.getText());
     }
-
     @Test
     void testTxtRadius() {
-        DialogDonut dialog = new DialogDonut();
-        dialog.txtRadius.setText("15");
-        assertEquals("15", dialog.txtRadius.getText());
+        dialogDonut.txtRadius.setText("15");
+        assertEquals("15", dialogDonut.txtRadius.getText());
     }
-
     @Test
     void testTxtInnerRadius() {
-        DialogDonut dialog = new DialogDonut();
-        dialog.txtInnerRadius.setText("5");
-        assertEquals("5", dialog.txtInnerRadius.getText());
+        dialogDonut.txtInnerRadius.setText("5");
+        assertEquals("5", dialogDonut.txtInnerRadius.getText());
     }
-
 }

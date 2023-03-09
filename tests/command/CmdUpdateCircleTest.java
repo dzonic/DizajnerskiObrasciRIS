@@ -19,7 +19,6 @@ class CmdUpdateCircleTest {
     private Circle newState;
     private Circle originalState;
     private CmdUpdateCircle cmdModifyCircle;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -28,13 +27,11 @@ class CmdUpdateCircleTest {
         originalState = new Circle(new Point(1, 1), 2,  Color.BLACK, Color.WHITE);
         cmdModifyCircle = new CmdUpdateCircle(oldState, newState);
     }
-
     @Test
     public void testExecute() {
         cmdModifyCircle.execute();
         assertEquals(newState, oldState);
     }
-
     @Test
     public void testUnexecute() {
         cmdModifyCircle.unexecute();

@@ -15,7 +15,6 @@ class CmdUpdateLineTest {
     private Line newState;
     private Line originalState;
     private CmdUpdateLine cmdModifyLine;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -24,13 +23,11 @@ class CmdUpdateLineTest {
         originalState = new Line(new Point(1, 1), new Point(3, 2),Color.BLACK);
         cmdModifyLine = new CmdUpdateLine(oldState, newState);
     }
-
     @Test
     public void testExecute() {
         cmdModifyLine.execute();
         assertEquals(newState, oldState);
     }
-
     @Test
     public void testUnexecute() {
         cmdModifyLine.unexecute();

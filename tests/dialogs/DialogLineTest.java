@@ -8,50 +8,37 @@ import java.awt.Color;
 import org.junit.jupiter.api.Test;
 
 class DialogLineTest {
-
+    DialogLine dialogLine = new DialogLine();
     @Test
     void testConstruction() {
-        DialogLine dialog = new DialogLine();
-        assertNotNull(dialog);
+        assertNotNull(dialogLine);
     }
-
     @Test
     void testEdgeColor() {
-        DialogLine dialog = new DialogLine();
         Color expected = Color.RED;
-        dialog.btnEdgeColor.setBackground(Color.RED);
-        dialog.setEdgeColor(Color.RED);
-        Color actual = dialog.getEdgeColor();
+        dialogLine.btnEdgeColor.setBackground(Color.RED);
+        dialogLine.setEdgeColor(Color.RED);
+        Color actual = dialogLine.getEdgeColor();
         assertEquals(expected,actual);
     }
-
     @Test
     void testTxtFirstX() {
-        DialogLine dialog = new DialogLine();
-        dialog.txtFirstX.setText("10");
-        assertEquals("10", dialog.txtFirstX.getText());
+        dialogLine.txtFirstX.setText("10");
+        assertEquals("10", dialogLine.txtFirstX.getText());
     }
-
     @Test
     void testTxtFirstY() {
-        DialogLine dialog = new DialogLine();
-        dialog.txtFirstY.setText("20");
-        assertEquals("20", dialog.txtFirstY.getText());
+        dialogLine.txtFirstY.setText("20");
+        assertEquals("20", dialogLine.txtFirstY.getText());
     }
-
     @Test
     void testTxtSecondX() {
-        DialogLine dialog = new DialogLine();
-        dialog.txtSecondX.setText("30");
-        assertEquals("30", dialog.txtSecondX.getText());
+        dialogLine.txtSecondX.setText("30");
+        assertEquals("30", dialogLine.txtSecondX.getText());
     }
-
     @Test
     void testTxtSecondY() {
-        DialogLine dialog = new DialogLine();
-        dialog.txtSecondY.setText("40");
-        assertEquals("40", dialog.txtSecondY.getText());
+        dialogLine.txtSecondY.setText("40");
+        assertEquals("40", dialogLine.txtSecondY.getText());
     }
-
-
 }

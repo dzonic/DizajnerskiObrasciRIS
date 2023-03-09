@@ -17,7 +17,6 @@ public class FileSerializationTest {
         FileSerialization fileSerialization = new FileSerialization(model);
         File file = new File("testPointShape.draw");
         fileSerialization.saveFile(file);
-        //model.clear();
         fileSerialization.openFile(file);
         ArrayList<Shape> shapes = model.getShapes();
         assertEquals(1, shapes.size());

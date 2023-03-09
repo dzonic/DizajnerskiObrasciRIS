@@ -15,7 +15,6 @@ public class CmdToFrontTest {
     private Point point;
     private int indexOfShape;
     private CmdToFront cmdToFront;
-
     @Before
     public void setUp() {
         model = new DrawingModel();
@@ -25,19 +24,16 @@ public class CmdToFrontTest {
         indexOfShape = model.getIndex(point);
         cmdToFront = new CmdToFront(point,model);
     }
-
     @Test
     public void testExecute() {
         cmdToFront.execute();
         assertEquals(indexOfShape, model.getIndex(point));
     }
-
     @Test
     public void testUnexecuteExecuteNotCalled() {
         cmdToFront.unexecute();
         assertEquals(indexOfShape, model.getIndex(point));
     }
-
     @Test
     public void testUnexecuteExecuteCalled() {
         cmdToFront.execute();

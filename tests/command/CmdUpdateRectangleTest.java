@@ -11,12 +11,10 @@ import java.awt.*;
 
 
 class CmdUpdateRectangleTest {
-
     private Rectangle oldState;
     private Rectangle newState;
     private Rectangle originalState;
     private CmdUpdateRectangle cmdModifyRectangle;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -30,7 +28,6 @@ class CmdUpdateRectangleTest {
         cmdModifyRectangle.execute();
         assertEquals(newState, oldState);
     }
-
     @Test
     public void testUnexecute() {
         cmdModifyRectangle.unexecute();

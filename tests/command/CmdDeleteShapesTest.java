@@ -13,25 +13,17 @@ public class CmdDeleteShapesTest {
 
     public Shape testShape = new Shape() {
         @Override
-        public void moveBy(int byX, int byY) {
-
-        }
-
+        public void moveBy(int byX, int byY) { }
         @Override
         public int compareTo(Object o) {
             return 0;
         }
-
         @Override
         public boolean contains(int x, int y) {
             return false;
         }
-
         @Override
-        public void draw(Graphics g) {
-
-        }
-
+        public void draw(Graphics g) { }
         @Override
         public Shape clone() {
             return null;
@@ -47,7 +39,6 @@ public class CmdDeleteShapesTest {
         cmd.execute();
         assertEquals(0, model.getShapes().size());
     }
-
     @Test
     public void testUnexecute() {
         List<Shape> shapesForDelete = new ArrayList<Shape>();

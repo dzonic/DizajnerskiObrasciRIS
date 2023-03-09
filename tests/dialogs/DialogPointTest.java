@@ -8,7 +8,6 @@ import java.awt.*;
 
 public class DialogPointTest {
     DialogPoint dialogPoint = new DialogPoint();
-
     @Test
     public void testXCoordinate() {
         dialogPoint.txtX.setText("5");

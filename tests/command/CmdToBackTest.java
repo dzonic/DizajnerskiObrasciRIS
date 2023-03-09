@@ -15,7 +15,6 @@ public class CmdToBackTest {
     private Point point;
     private int indexOfShape;
     private CmdBringToBack cmdBringToBack;
-
     @Before
     public void setUp() {
         model = new DrawingModel();
@@ -25,19 +24,16 @@ public class CmdToBackTest {
         indexOfShape = model.getIndex(point);
         cmdBringToBack = new CmdBringToBack(point,model);
     }
-
     @Test
     public void testExecute() {
         cmdBringToBack.execute();
         assertEquals(0, model.getIndex(point));
     }
-
     @Test
     public void testUnexecuteExecuteNotCalled() {
         cmdBringToBack.unexecute();
         assertNotEquals(indexOfShape, model.getIndex(point));
     }
-
     @Test
     public void testUnexecuteExecuteCalled() {
         cmdBringToBack.execute();
