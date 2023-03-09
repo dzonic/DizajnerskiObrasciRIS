@@ -257,7 +257,6 @@ public class DrawingController implements Subject {
 	}
 	public void operationDelete() {
 		if (model.isEmpty()) return;
-
 			showMessageForDeleteOptionDialog();
 			CmdDeleteShapes cmdDeleteShapes = new CmdDeleteShapes(model.getSelectedShapes(), model);
 			execute(cmdDeleteShapes);
@@ -352,7 +351,6 @@ public class DrawingController implements Subject {
 		int numberOfSelected = model.getSelectedShapes().size();
 		return numberOfSelected;
 	}
-	
 	public void toFront() {
 		int index = model.getSelected();
 		Shape selectedShape = model.getShape(index);
@@ -362,7 +360,6 @@ public class DrawingController implements Subject {
 		CmdToFront cmdToFront = new CmdToFront(selectedShape, model);
 		execute(cmdToFront);
 	}
-	
 	public void bringToFront() {
 		int index = model.getSelected();
 		Shape selectedShape = model.getShape(index);
@@ -372,7 +369,6 @@ public class DrawingController implements Subject {
 		CmdBringToFront cmdBringToFront = new CmdBringToFront(selectedShape, model);
 		execute(cmdBringToFront);
 	}
-	
 	public void toBack() {
 		int index = model.getSelected();
 		Shape selectedShape = model.getShape(index);

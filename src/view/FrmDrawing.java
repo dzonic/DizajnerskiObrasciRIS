@@ -141,11 +141,11 @@ public class FrmDrawing extends JFrame implements Observer {
 		
 		btnOperationDrawing.setSelected(true);
 		
-		btnOperationDrawing.addActionListener(e -> controller.setCurrentState(OPERATION_DRAWING));
+		btnOperationDrawing.addActionListener(actionEvent -> controller.setCurrentState(OPERATION_DRAWING));
 		btnOperationDrawing.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationDrawing);
 		
-		btnOperationEditOrDelete.addActionListener(e -> controller.setCurrentState(OPERATION_EDIT_DELETE));
+		btnOperationEditOrDelete.addActionListener(actionEvent -> controller.setCurrentState(OPERATION_EDIT_DELETE));
 		btnOperationEditOrDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnsOperation.add(btnOperationEditOrDelete);
 
@@ -153,18 +153,18 @@ public class FrmDrawing extends JFrame implements Observer {
 		panelAllActions.setBorder(new TitledBorder(null, "Akcije", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelBasic.add(panelAllActions);
 
-		btnActionEdit.addActionListener(e -> controller.operationEdit());
+		btnActionEdit.addActionListener(actionEvent -> controller.operationEdit());
 		btnActionEdit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		btnActionDelete.addActionListener(e -> controller.operationDelete());
+		btnActionDelete.addActionListener(actionEvent -> controller.operationDelete());
 		btnActionDelete.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		btnUndo.addActionListener(e -> controller.undoCommand());
-		btnRedo.addActionListener(e -> controller.redoCommand());
-		btnToFront.addActionListener(e -> controller.toFront());
-		btnBringToFront.addActionListener(e -> controller.bringToFront());
-		btnToBack.addActionListener(e -> controller.toBack());
-		btnBringToBack.addActionListener(e -> controller.bringToBack());
+		btnUndo.addActionListener(actionEvent -> controller.undoCommand());
+		btnRedo.addActionListener(actionEvent -> controller.redoCommand());
+		btnToFront.addActionListener(actionEvent -> controller.toFront());
+		btnBringToFront.addActionListener(actionEvent -> controller.bringToFront());
+		btnToBack.addActionListener(actionEvent -> controller.toBack());
+		btnBringToBack.addActionListener(actionEvent -> controller.bringToBack());
 		
 		GroupLayout gl_panelAllActions = new GroupLayout(panelAllActions);
 		gl_panelAllActions.setHorizontalGroup(
@@ -241,7 +241,7 @@ public class FrmDrawing extends JFrame implements Observer {
 		btnsShapes.add(btnShapeHexagon);
 		panelAllShapes.add(btnShapeHexagon);
 
-		btnOpenFile.addActionListener(arg0 -> {
+		btnOpenFile.addActionListener(actionEvent -> {
 			openFileChooser = new JFileChooser();
 			openFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			openFileChooser.setFileSelectionMode(JFileChooser.OPEN_DIALOG);
@@ -386,13 +386,12 @@ public class FrmDrawing extends JFrame implements Observer {
 	};
 }
 	@Override
-	public void update(int currState,int numOfSelectedShapes, int numOfShapes,int numOfUnexecutedCmd,int numOfExecutedCmd,int numOfLogs,String typeOfFile) {
-
-		if(numOfShapes != 0 && numOfLogs == 0)
+	public void update(int currentState,int numberOfSelectedShapes, int numberOfShapes,int numberOfUnexecutedCmd,int numberOfExecutedCmd,int numberOfLogs,String typeOfFile) {
+		if(numberOfShapes != 0 && numberOfLogs == 0)
 			btnSaveFile.setEnabled(true);
-		else if(numOfShapes == 0 && numOfLogs != 0) 
+		else if(numberOfShapes == 0 && numberOfLogs != 0)
 			btnSaveFile.setEnabled(true);
-		else if(numOfShapes != 0 && numOfLogs != 0 )
+		else if(numberOfShapes != 0 && numberOfLogs != 0 )
 			btnSaveFile.setEnabled(true);
 		else
 			btnSaveFile.setEnabled(false);
@@ -400,12 +399,12 @@ public class FrmDrawing extends JFrame implements Observer {
 		if(typeOfFile == "Log") btnReadCommand.setEnabled(true);
 		else btnReadCommand.setEnabled(false);
 
-		if(numOfUnexecutedCmd == 0) btnRedo.setEnabled(false);
+		if(numberOfUnexecutedCmd == 0) btnRedo.setEnabled(false);
 		else btnRedo.setEnabled(true);
-		if(numOfExecutedCmd == 0)btnUndo.setEnabled(false);
+		if(numberOfExecutedCmd == 0)btnUndo.setEnabled(false);
 		else btnUndo.setEnabled(true);
 
-		if(OPERATION_DRAWING == currState) {
+		if(OPERATION_DRAWING == currentState) {
 			btnActionEdit.setEnabled(false);
 			btnActionDelete.setEnabled(false);
 			btnBringToBack.setEnabled(false);
@@ -423,14 +422,14 @@ public class FrmDrawing extends JFrame implements Observer {
 			btnColorEdge.setEnabled(true);
 			btnColorInner.setEnabled(true);
 		}
-		if(OPERATION_EDIT_DELETE == currState) {
-			if(numOfSelectedShapes>1) {
+		if(OPERATION_EDIT_DELETE == currentState) {
+			if(numberOfSelectedShapes>1) {
 				btnActionEdit.setEnabled(false);
 				btnBringToBack.setEnabled(false);
 				btnBringToFront.setEnabled(false);
 				btnToBack.setEnabled(false);
 				btnToFront.setEnabled(false);
-			} else if(numOfSelectedShapes == 1) {
+			} else if(numberOfSelectedShapes == 1) {
 				btnActionEdit.setEnabled(true);
 				btnBringToBack.setEnabled(true);
 				btnBringToFront.setEnabled(true);
@@ -443,7 +442,7 @@ public class FrmDrawing extends JFrame implements Observer {
 				btnToBack.setEnabled(false);
 				btnToFront.setEnabled(false);
 			}
-			if(numOfSelectedShapes >=1)
+			if(numberOfSelectedShapes >=1)
 				btnActionDelete.setEnabled(true);
 			else
 				btnActionDelete.setEnabled(false);
